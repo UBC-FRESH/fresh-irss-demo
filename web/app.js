@@ -530,6 +530,17 @@
       });
     }
 
+    if (input) {
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+          event.preventDefault();
+          if (form) {
+            form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit"));
+          }
+        }
+      });
+    }
+
     if (form) {
       form.addEventListener("submit", function (event) {
         event.preventDefault();
