@@ -141,3 +141,15 @@ status and the GitHub issue comments.
   longer pushes the Ask control outside the viewport.
 - Dashboard result on the collaboration-pass head commit: **GREEN** on all six
   gates; 27 site/assistant tests pass.
+
+## 2026-11-04
+
+- Added conversation history to the assistant request. The client sends the recent
+  user/assistant turns and the server includes them in the prompt, so a visitor can
+  volunteer a name or email in one turn and use it in the next.
+- Raised the `irss-guide` step budget to 30 and added a finish-in-the-same-turn rule
+  for the issue-plus-Basecamp flow, so the agent reports the issue URL and invite
+  status instead of stopping after an intermediate “I’ll check” line.
+- End-to-end test through the app agent created issue #40 in `irss-expansion`, added
+  the test requester to Basecamp project 49482084, and posted message 10474349728.
+  These are test artifacts and should be cleaned up after review.

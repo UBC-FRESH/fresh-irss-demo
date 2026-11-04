@@ -254,6 +254,10 @@ Use only the `gep.agent@01101.io` profile and the project above. If Basecamp is 
 or the invite fails, report that separately; do not claim the invitation succeeded and do
 not retry blindly. The issue is still valid even if the Basecamp notification fails.
 
+Finish the issue-and-Basecamp flow in the same turn. Do not stop after saying “I’ll check”
+or “I’ll draft it”; the useful result is the issue URL, the label, whether the invite
+succeeded, and the message URL. If a step fails, report that step and what remains.
+
 If the request was a duplicate and you only added a comment to an existing issue, you may
 still invite the visitor to the Basecamp project and point them to the existing issue thread;
 do not create a second issue just to produce a Basecamp message.

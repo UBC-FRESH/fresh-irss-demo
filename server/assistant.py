@@ -220,6 +220,18 @@ def ask(message: str, context: dict[str, object] | None = None) -> dict[str, obj
     cleaned = message.strip()[:MAX_MESSAGE]
     if not cleaned:
         raise ValueError("message is required")
+    context_payload = dict(context or {})
+    raw_history = context_payload.pop("history", [])
+    history_lines = []
+    if isinstance(raw_history, list):
+        for item in raw_history[-8:]:
+            if not isinstance(item, dict):
+                continue
+            role = item.get("role")
+            text = item.get("text")
+            if role in ("user", "assistant") and isinstance(text, str):
+                history_lines.append(f"{role.title()}: {text.strip()[:1200]}")
+    history = "\n".join(history_lines)
     sources = INDEX.search(cleaned)
     evidence = "\n\n".join(
         f"[{item['label']}]({item['url']})\n{item['snippet']}" for item in sources
@@ -229,6 +241,7 @@ def ask(message: str, context: dict[str, object] | None = None) -> dict[str, obj
         if PERSONA_FILE.is_file()
         else "You are the FRESH x IRSS demo guide. Answer clearly from the evidence."
     )
+    history_block = f"Conversation so far:\n{history}\n\n" if history else ""
     prompt = (
         f"{persona}\n\n"
         "Follow the visitor contract above. You also have read-only access to every "
@@ -237,7 +250,8 @@ def ask(message: str, context: dict[str, object] | None = None) -> dict[str, obj
         "capability, status, or dataset IDs. Answer directly from the excerpts below; "
         "do not enumerate directories or duplicate checkouts. Keep the reply under "
         "200 words and cite the source labels or repository paths used.\n\n"
-        f"UI context: {json.dumps(context or {}, ensure_ascii=False)[:MAX_CONTEXT]}\n\n"
+        + history_block
+        + f"UI context: {json.dumps(context_payload, ensure_ascii=False)[:MAX_CONTEXT]}\n\n"
         f"Evidence:\n{evidence}\n\nUser: {cleaned}"
     )
     command = [
