@@ -28,7 +28,12 @@ status and the GitHub issue comments.
   assistant backend contract, and development/verification guide.
 - Published through the existing `docs.yml` workflow: the demo is the Pages
   root and Sphinx docs are served under `/docs/`.
-- Dashboard result on the P1 head commit: pending the final run recorded below.
-  The local run before publication was green: lint, format, `mypy --strict`,
-  154 tests with 100% branch coverage of `scripts/`, workflow validator, and
-  Sphinx with warnings as errors.
+- Published the public repository at
+  https://github.com/UBC-FRESH/fresh-irss-demo and the demo at
+  https://ubc-fresh.github.io/fresh-irss-demo/.
+- Dashboard result on the P1 head commit: **GREEN**. Lint, format,
+  `mypy --strict`, 154 tests with 100% branch coverage of `scripts/`, workflow
+  validator, and Sphinx with warnings as errors all passed.
+- Opened parent issues #1 (P0), #2 (P1), #3 (P2), #4 (P3), and #5 (P4).
+  P0/P1 child issues #6-#15 are closed with their evidence. The live-work
+  backlog is tracked in #3-#5.

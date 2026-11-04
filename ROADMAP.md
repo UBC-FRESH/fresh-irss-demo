@@ -13,11 +13,11 @@ first public slice; P2-P4 are the live-work backlog.
 
 | Phase | Parent issue | Branch | Status |
 | --- | --- | --- | --- |
-| P0 Public demo slice | TBD | `feature/p0-public-slice` | planned |
-| P1 Verification and publication | TBD | `feature/p1-verification` | planned |
-| P2 Live assistant backend | TBD | `feature/p2-assistant` | planned |
-| P3 Interactive map | TBD | `feature/p3-map` | planned |
-| P4 Registry-driven build | TBD | `feature/p4-registry` | planned |
+| P0 Public demo slice | #1 | `main` | complete |
+| P1 Verification and publication | #2 | `main` | complete |
+| P2 Live assistant backend | #3 | `feature/p2-assistant` | planned |
+| P3 Interactive map | #4 | `feature/p3-map` | planned |
+| P4 Registry-driven build | #5 | `feature/p4-registry` | planned |
 
 ## Lifecycle Map
 
@@ -37,18 +37,18 @@ first public slice; P2-P4 are the live-work backlog.
 
 ## Phase 0: Public demo slice
 
-Parent issue: TBD
-Branch: `feature/p0-public-slice`
-Status: planned
+Parent issue: #1
+Branch: `main`
+Status: complete
 
 Goal: publish a polished, static, evidence-backed explanation of eight IRSS/Silva21 integration lanes, with a small public case study and an explicit boundary.
 
-- [x] P0.1 Write the landing narrative and the evidence model
-- [x] P0.2 Build eight integration cards with status, why-it-matters, and boundary text
-- [x] P0.3 Add the static TFL 6 map, fixture table, and synthetic climate sample
-- [x] P0.4 Build the disabled assistant drawer shell
-- [x] P0.5 Add the provenance and limitations panel
-- [x] P0.6 Make the page responsive and accessible
+- [x] P0.1 Write the landing narrative and the evidence model (#6)
+- [x] P0.2 Build eight integration cards with status, why-it-matters, and boundary text (#7)
+- [x] P0.3 Add the static TFL 6 map, fixture table, and synthetic climate sample (#8)
+- [x] P0.4 Build the disabled assistant drawer shell (#9)
+- [x] P0.5 Add the provenance and limitations panel (#10)
+- [x] P0.6 Make the page responsive and accessible (#11)
 
 Acceptance criteria:
 
@@ -59,16 +59,16 @@ Acceptance criteria:
 
 ## Phase 1: Verification and publication
 
-Parent issue: TBD
-Branch: `feature/p1-verification`
-Status: planned
+Parent issue: #2
+Branch: `main`
+Status: complete
 
 Goal: make the public slice reproducible, documented, and live on GitHub Pages.
 
-- [x] P1.1 Add site contract tests for structure, evidence links, fixtures, and the disabled assistant
-- [x] P1.2 Write the documentation set and the assistant backend contract
-- [x] P1.3 Publish the static site and docs to GitHub Pages
-- [x] P1.4 Record the P0/P1 roadmap and the live-work issue tree
+- [x] P1.1 Add site contract tests for structure, evidence links, fixtures, and the disabled assistant (#12)
+- [x] P1.2 Write the documentation set and the assistant backend contract (#13)
+- [x] P1.3 Publish the static site and docs to GitHub Pages (#14)
+- [x] P1.4 Record the P0/P1 roadmap and the live-work issue tree (#15)
 
 Acceptance criteria:
 
@@ -79,7 +79,7 @@ Acceptance criteria:
 
 ## Phase 2: Live assistant backend
 
-Parent issue: TBD
+Parent issue: #3
 Branch: `feature/p2-assistant`
 Status: planned
 
@@ -99,7 +99,7 @@ Acceptance criteria:
 
 ## Phase 3: Interactive map
 
-Parent issue: TBD
+Parent issue: #4
 Branch: `feature/p3-map`
 Status: planned
 
@@ -119,7 +119,7 @@ Acceptance criteria:
 
 ## Phase 4: Registry-driven build
 
-Parent issue: TBD
+Parent issue: #5
 Branch: `feature/p4-registry`
 Status: planned
 
@@ -139,7 +139,7 @@ Acceptance criteria:
 
 ## Detailed Next Steps Notes
 
-1. Create the P0 and P1 parent issues from `.github/ISSUE_TEMPLATE/phase.md`, then set their numbers here and in the tracker map.
-2. Create the P2-P4 parent issues and record the live-work backlog.
-3. Enable GitHub Pages with the GitHub Actions source.
+1. P0 and P1 are complete on `main`; parent issues #1 and #2 are closed, and child issues #6-#15 carry the task evidence.
+2. P2, P3, and P4 are open as parent issues #3-#5; they are the live-work backlog.
+3. GitHub Pages must be enabled with the GitHub Actions source.
 4. Verify the published URL and record the dashboard result in `CHANGE_LOG.md`.
