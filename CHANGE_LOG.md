@@ -1,0 +1,34 @@
+# Change Log
+
+Newest entries last. Each milestone gets a dated entry that matches the roadmap
+status and the GitHub issue comments.
+
+## 2026-11-03
+
+- Created FRESH IRSS Demo from the UBC-FRESH dev workflow seed. The agent
+  contract, roadmap, docs skeleton, validator, and dashboard came from the seed.
+  Every phase started as planned, and no parent issues existed yet.
+
+## 2026-11-04
+
+- Built the first public slice (P0). Added the landing narrative, eight
+  evidence-backed integration cards, a static TFL 6 map from a 9 KB public
+  GeoJSON fixture, the four-row synthetic climate-contract sample, the disabled
+  HectaresBC-style assistant drawer, the provenance and limitations panel, and a
+  responsive accessible page shell.
+- Added the public data boundary: the TFL 6 fixture retains OGL-BC attribution
+  and its FHOPS provenance record; machine rates, work volumes, productivity,
+  landing capacity, and the road job remain synthetic; no raw raster, private
+  path, credential, or operational recommendation is shipped.
+- Added site contract tests (154 total) covering heading structure, unique IDs,
+  local and remote links, eight cards with evidence and boundaries, fixture
+  geometry, climate-table consistency, registry counts, the disabled assistant,
+  no hardcoded credentials, no private paths, and the public-boundary wording.
+- Added the documentation set: demo overview, evidence and status vocabulary,
+  assistant backend contract, and development/verification guide.
+- Published through the existing `docs.yml` workflow: the demo is the Pages
+  root and Sphinx docs are served under `/docs/`.
+- Dashboard result on the P1 head commit: pending the final run recorded below.
+  The local run before publication was green: lint, format, `mypy --strict`,
+  154 tests with 100% branch coverage of `scripts/`, workflow validator, and
+  Sphinx with warnings as errors.

@@ -1,0 +1,32 @@
+{
+  "title": "TFL 6 LidarBC public fixture",
+  "subtitle": "Seven clipped VRI blocks, one road job, and one landing in a ~100 ha pilot AOI",
+  "source": {
+    "repository": "https://github.com/UBC-FRESH/fhops",
+    "path": "examples/lidar_tfl6",
+    "readme": "https://github.com/UBC-FRESH/fhops/blob/main/examples/lidar_tfl6/README.md",
+    "provenance": "https://github.com/UBC-FRESH/fhops/blob/main/examples/lidar_tfl6/provenance.json"
+  },
+  "bundle": {
+    "id": "lidarbc-995fb1f771f4d7fe",
+    "version": "2026.10.0-tfl6-pilot",
+    "source": "LidarBC",
+    "licence": "Open Government Licence - British Columbia (OGL-BC)",
+    "licence_url": "https://www2.gov.bc.ca/gov/content/data/open-data/open-government-licence-bc",
+    "native_crs": "EPSG:3005"
+  },
+  "counts": {
+    "blocks": 7,
+    "roads": 1,
+    "landings": 1,
+    "area_ha": 100.0
+  },
+  "transformation": "EPSG:3005 to EPSG:4326 for static browser display; coordinates rounded to six decimals. Geometry is not simplified.",
+  "source_data": "Only the LiDAR-derived values and clipped VRI geometry are source data. Machine rates, work volumes, productivity, landing capacity, and the road job are synthetic planning values for a smoke test.",
+  "not_claimed": [
+    "No field accuracy is claimed.",
+    "No calibrated cost or production rate is claimed.",
+    "No operational harvest plan is claimed.",
+    "The fixture is not a complete inventory of the pilot AOI."
+  ]
+}

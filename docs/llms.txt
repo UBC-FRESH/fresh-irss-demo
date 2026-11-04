@@ -1,0 +1,12 @@
+# FRESH IRSS Demo
+
+> Agent-facing index for the FRESH × IRSS + Silva21 public integration demo. Read the linked pages before changing the project.
+
+## Start here
+
+- [Home](index.html): what the demo is, what it contains, and what it does not claim.
+- [The public demo](demo.html): the eight lanes, the TFL 6 map, and the synthetic climate sample.
+- [Evidence and boundaries](evidence.html): sources, status vocabulary, and limits.
+- [Assistant contract](assistant.html): why the drawer is disabled and what a safe backend needs.
+- [Development and verification](development.html): local run, checks, and Pages deployment.
+- [API reference](api/index.html): the workflow validator and dashboard functions.

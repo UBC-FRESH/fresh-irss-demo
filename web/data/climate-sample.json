@@ -1,0 +1,72 @@
+{
+  "contract": "femic.climate.v1",
+  "source": "https://github.com/UBC-FRESH/femic/blob/main/tests/fixtures/contracts/climate_v1_sample.csv",
+  "status": "Synthetic contract fixture; not observed values.",
+  "description": "Four records from the public climate-contract fixture. The schema fixes units, scenario labels, variance, and retrieval provenance so FEMIC, ws3, ws4, and Nemora can exchange one table.",
+  "records": [
+    {
+      "schema_version": "femic.climate.v1",
+      "aoi_id": "north-island",
+      "variable": "tavg",
+      "unit": "degC",
+      "year": 2020,
+      "scenario": "historical",
+      "gcm": "synthetic-ensemble",
+      "value": 8.4,
+      "variance": 0.12,
+      "source_id": "contract-fixture",
+      "source_version": "1.0",
+      "downscaling_method": "none",
+      "retrieved_utc": "2026-10-25T00:00:00+00:00",
+      "notes": "Synthetic contract fixture; not an observed value."
+    },
+    {
+      "schema_version": "femic.climate.v1",
+      "aoi_id": "north-island",
+      "variable": "tavg",
+      "unit": "degC",
+      "year": 2050,
+      "scenario": "ssp245",
+      "gcm": "synthetic-ensemble",
+      "value": 10.1,
+      "variance": 0.35,
+      "source_id": "contract-fixture",
+      "source_version": "1.0",
+      "downscaling_method": "none",
+      "retrieved_utc": "2026-10-25T00:00:00+00:00",
+      "notes": "Synthetic mid-century value."
+    },
+    {
+      "schema_version": "femic.climate.v1",
+      "aoi_id": "north-island",
+      "variable": "ppt",
+      "unit": "mm",
+      "year": 2050,
+      "scenario": "ssp245",
+      "gcm": "synthetic-ensemble",
+      "value": 1420.0,
+      "variance": 8100.0,
+      "source_id": "contract-fixture",
+      "source_version": "1.0",
+      "downscaling_method": "none",
+      "retrieved_utc": "2026-10-25T00:00:00+00:00",
+      "notes": "Synthetic annual precipitation."
+    },
+    {
+      "schema_version": "femic.climate.v1",
+      "aoi_id": "north-island",
+      "variable": "tmin",
+      "unit": "degC",
+      "year": 2050,
+      "scenario": "ssp245",
+      "gcm": "synthetic-ensemble",
+      "value": 4.2,
+      "variance": 0.08,
+      "source_id": "contract-fixture",
+      "source_version": "1.0",
+      "downscaling_method": "none",
+      "retrieved_utc": "2026-10-25T00:00:00+00:00",
+      "notes": "Synthetic cold-month minimum."
+    }
+  ]
+}

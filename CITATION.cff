@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this demo or its public fixtures, please cite the repository."
+title: "FRESH × IRSS + Silva21 Public Integration Demo"
+abstract: "A public, static demonstration of eight integration lanes between the IRSS and Silva21 environmental intelligence record and the FRESH forest decision stack. It is a communication artifact, not an operational tool."
+authors:
+  - name: "UBC FRESH Lab"
+repository-code: "https://github.com/UBC-FRESH/fresh-irss-demo"
+url: "https://ubc-fresh.github.io/fresh-irss-demo/"
+license: "MIT"
+version: "0.1.0"
+date-released: "2026-11-04"

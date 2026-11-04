@@ -1,0 +1,23 @@
+{
+  "source": "https://github.com/UBC-FRESH/irss-expansion/blob/main/registry/candidates.yaml",
+  "generated": "2026-11-03",
+  "counts": {
+    "candidates": 62,
+    "complete": 17,
+    "adopted": 2,
+    "wave_1": 13,
+    "workstreams": 9
+  },
+  "workstreams": {
+    "INV": "Inventory, LiDAR, and EFI",
+    "GRO": "Growth, yield, and climate",
+    "DIS": "Disturbance, risk, and recovery",
+    "PLAN": "Landscape planning and resilience",
+    "CARB": "Carbon and biomass",
+    "BIO": "Biodiversity and habitat",
+    "OPS": "Harvesting operations and salvage",
+    "DATA": "Data engineering and uncertainty",
+    "DEC": "Decision support and provenance"
+  },
+  "status_note": "Counts are a snapshot of the public registry on 2026-11-03. Read the registry for the live values."
+}
