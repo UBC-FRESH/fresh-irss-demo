@@ -12,7 +12,7 @@
     <meta name="theme-color" content="#174c44">
     <meta property="og:type" content="website">
     <meta property="og:title" content="FRESH × IRSS + Silva21 — Environmental intelligence for forest decisions">
-    <meta property="og:description" content="Eight public integration lanes, a small TFL 6 case study, and an explicitly disabled assistant shell. A static, evidence-first demonstration.">
+    <meta property="og:description" content="Eight public integration lanes, a small TFL 6 case study, and a local opt-in assistant. A static, evidence-first demonstration.">
     <meta property="og:url" content="https://ubc-fresh.github.io/fresh-irss-demo/">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="FRESH × IRSS + Silva21">
@@ -39,6 +39,7 @@
         <a href="#case-study">Case study</a>
         <a href="#surfaces">FRESH demos</a>
         <a href="#assistant">Assistant</a>
+        <a href="#collaborate">Collaborate</a>
         <a href="#provenance">Provenance</a>
       </nav>
 
@@ -66,7 +67,7 @@
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#integrations">Explore the eight lanes</a>
-            <a class="button button-ghost" href="#case-study">See the public fixture</a>
+            <a class="button button-ghost" href="#collaborate">Start a collaboration</a>
           </div>
           <p class="hero-note">
             <strong>Static and evidence-first.</strong> No live data feed, no model endpoint, and no
@@ -114,7 +115,7 @@
           <p>
             <strong>Research demonstration, not an operational tool.</strong>
             The map uses a small public smoke-test fixture; the climate table is a synthetic
-            contract fixture; the assistant is a disabled shell. Nothing here is a field
+            contract fixture; the public static page has no assistant backend. Nothing here is a field
             validation, a calibrated cost model, or a harvest plan.
           </p>
         </div>
@@ -808,36 +809,36 @@
       <section id="assistant" class="section section-dark" aria-labelledby="assistant-section-title">
         <div class="wrap assistant-section-grid">
           <div>
-            <p class="eyebrow eyebrow-light">Assistant shell</p>
-            <h2 id="assistant-section-title">A visible seam — deliberately switched off</h2>
+            <p class="eyebrow eyebrow-light">Assistant</p>
+            <h2 id="assistant-section-title">A local guide to the integration story</h2>
             <p class="section-lede">
-              The drawer follows the HectaresBC pattern: a same-page panel, a short prompt box, and
-              a clear status line. In this static demo it is disabled. No endpoint is configured,
-              so no prompt can leave the browser.
+              The public static page leaves the drawer switched off. When the demo is served by
+              the local same-origin service, the assistant reads the registry and evidence,
+              answers with citations, and points to the lane or evidence view worth exploring next.
             </p>
             <div class="assistant-requirements">
-              <h3>What a safe backend would need</h3>
+              <h3>What the guide does</h3>
               <ul>
-                <li>An opt-in local service, not a key in client code.</li>
-                <li>A same-origin <code>/api/assistant</code> route with an allowlist.</li>
-                <li>Server-side provider credentials and request limits.</li>
-                <li>A provenance-bearing answer contract and a review path.</li>
+                <li>Reads the public registry, notes, and lane evidence across the workspace.</li>
+                <li>Separates registry status from an open or unmerged evidence state.</li>
+                <li>Explains the seam in plain language and links the evidence.</li>
+                <li>Invites the next collaboration when a visitor wants to go further.</li>
               </ul>
             </div>
             <button id="assistant-open-inline" class="button button-light" type="button">
-              Open the disabled assistant
+              Open the assistant
             </button>
           </div>
           <div class="assistant-preview" aria-hidden="true">
             <div class="preview-head">
               <span>FRESH IRSS assistant</span>
-              <span class="preview-status">not enabled</span>
+              <span class="preview-status">local opt-in</span>
             </div>
             <div class="preview-body">
               <p class="preview-msg user">Which integration changed the carbon account?</p>
               <p class="preview-msg agent">
-                The assistant is not enabled in this static demo. The drawer is a shell; no model
-                request is made.
+                On the public static page the drawer stays off. The local service enables it with
+                cited answers from the registry and the demo evidence.
               </p>
             </div>
             <div class="preview-form">
@@ -948,6 +949,55 @@
           </ol>
         </div>
       </section>
+
+      <section id="collaborate" class="section section-dark collab-section" aria-labelledby="collab-title">
+        <div class="wrap collab-grid">
+          <div class="collab-copy">
+            <p class="eyebrow eyebrow-light">Bring the science. Build the tool.</p>
+            <h2 id="collab-title">Have remote-sensing science that should be making decisions by now?</h2>
+            <p class="section-lede">
+              If you are in IRSS or Silva21 and you have a method, a dataset, or a wild idea that
+              belongs in a forest decision tool, bring it to FRESH. We can help turn it into a
+              small contract, a working prototype, and a decision workflow that people can use —
+              without flattening the science or hiding the uncertainty.
+            </p>
+            <p class="collab-invite">
+              <strong>Are you excited? Reach out to Greg and start a conversation.</strong>
+              The goal is to fast-track more IRSS and Silva21 science into FRESH DSS applications,
+              get it into the real world, and turn cutting-edge open science into better
+              sustainability decisions.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="mailto:gregory.paradis@ubc.ca?subject=FRESH%20%C3%97%20IRSS%20collaboration">
+                Email Greg
+              </a>
+              <a class="button button-light" href="https://fresh.forestry.ubc.ca/" target="_blank" rel="noopener noreferrer">
+                Visit the FRESH Lab
+              </a>
+            </div>
+          </div>
+          <aside class="collab-card" aria-label="Gregory Paradis contact details">
+            <p class="collab-kicker">Start a conversation</p>
+            <h3>Gregory Paradis</h3>
+            <p class="collab-role">Assistant Professor, Forest Resources Management</p>
+            <p class="collab-contact">
+              <a href="mailto:gregory.paradis@ubc.ca">gregory.paradis@ubc.ca</a><br>
+              <a href="tel:+16048221890">(604) 822-1890</a>
+            </p>
+            <p class="collab-address">
+              Office 4645<br>
+              2424 Main Mall<br>
+              Vancouver, BC V6T 1Z4
+            </p>
+            <div class="collab-links">
+              <a href="https://fresh.forestry.ubc.ca/" target="_blank" rel="noopener noreferrer">FRESH Lab <span aria-hidden="true">↗</span></a>
+              <a href="https://forestry.ubc.ca/faculty-profile/gregory-paradis" target="_blank" rel="noopener noreferrer">UBC faculty page <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/gparadis" target="_blank" rel="noopener noreferrer">GitHub · gparadis <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/UBC-FRESH" target="_blank" rel="noopener noreferrer">GitHub · UBC-FRESH <span aria-hidden="true">↗</span></a>
+            </div>
+          </aside>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -1008,6 +1058,7 @@
         <button type="button" disabled>Which lane is complete?</button>
         <button type="button" disabled>What does the map show?</button>
         <button type="button" disabled>Where is the carbon boundary?</button>
+        <button type="button" disabled>How can I collaborate with FRESH?</button>
       </div>
 
       <form id="assistant-form" class="assistant-form">

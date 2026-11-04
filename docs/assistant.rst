@@ -85,6 +85,18 @@ are limited to http(s), mailto, same-origin paths, and fragments. Citations are
 rendered as a separate list below the answer, so a citation is never mistaken
 for part of the model prose.
 
+The visitor-facing voice, evidence rules, collaboration invitation, and feature-request
+flow live in ``web/assistant/AGENTS.md`` and are loaded into every prompt. If a visitor
+asks about work that is not in the registry, the guide can draft a feature request for
+``UBC-FRESH/irss-expansion``, ask for permission and an optional name, validate the body
+with the dev-workflow checker, and file it with the ``demo-app-agent`` label.
+After a new issue, the guide can ask for the visitor's email, add them to the
+``gep.agent@01101.io`` Basecamp project, and post a short message linking the
+issue and inviting a reply in the thread. The contract tells the guide to lead
+with the answer, use plain language, distinguish status from evidence, and invite
+interested visitors to contact Greg and the FRESH lab. The public contact surface
+is the ``#collaborate`` section of the demo.
+
 Citation URLs are mapped to maintained sources: ``docs/`` pages are served from
 the local Sphinx build at ``/docs/``, demo notes and web evidence point at this
 repository, and expansion notes and registry paths point at

@@ -62,6 +62,38 @@ def test_ask_uses_fake_opencode(monkeypatch: pytest.MonkeyPatch) -> None:
     assert "--standalone" in command
     assert "--agent irss-guide" in command
     assert "--auto" not in command
+    assert "visitor-facing contract" in command
+    assert "gregory.paradis@ubc.ca" in command
+
+
+def test_persona_keeps_contact_and_collaboration_invite() -> None:
+    """The app persona carries the public collaboration surface into every prompt."""
+    persona = (Path(__file__).resolve().parents[1] / "web" / "assistant" / "AGENTS.md").read_text(
+        encoding="utf-8"
+    )
+    for fragment in (
+        "gregory.paradis@ubc.ca",
+        "(604) 822-1890",
+        "4645",
+        "https://fresh.forestry.ubc.ca/",
+        "https://forestry.ubc.ca/faculty-profile/gregory-paradis",
+        "https://github.com/gparadis",
+        "Invite the next conversation",
+        "feature request for the",
+        "gh issue create --repo UBC-FRESH/irss-expansion",
+        "demo-app-agent",
+        "Would you like me to include your name",
+        "Search existing open issues",
+        "clear duplicate",
+        "Related issues: #",
+        "compare notes",
+        "requester name",
+        "Basecamp handoff",
+        "49482084",
+        "email address",
+        "gep.agent@01101.io",
+    ):
+        assert fragment in persona
 
 
 def test_agent_config_is_read_only(tmp_path: Path) -> None:

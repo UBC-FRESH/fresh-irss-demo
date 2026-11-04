@@ -108,3 +108,28 @@ status and the GitHub issue comments.
 - Dashboard result on the accuracy-pass head commit: **GREEN**. Lint, format,
   `mypy --strict`, 164 tests, workflow validator, and Sphinx with warnings as
   errors all passed.
+- Added a visitor-facing assistant contract at `web/assistant/AGENTS.md`, loaded
+  into every assistant prompt. It sets the tone, answer shape, evidence rules,
+  navigation cues, and a direct collaboration invitation.
+- Added a `#collaborate` section to the demo with Greg's FRESH Lab, UBC faculty
+  page, GitHub, email, phone, and office details, plus a strong invitation to
+  bring IRSS/Silva21 methods and datasets into FRESH decision tools.
+- Added a feature-request flow to the visitor contract. If a topic is absent from the
+  registry, the guide offers to draft and submit an `irss-expansion` issue, asks for an
+  optional requester name, follows the `ubc-fresh-dev-workflow` issue standard, validates
+  the body, and tags the issue `demo-app-agent`.
+- The feature-request flow also searches open `irss-expansion` issues. A clear
+  duplicate gets a context comment; related but distinct requests get a new
+  issue with `Related:` links. The assistant reports the outcome without making
+  the visitor manage the duplicate-check housekeeping.
+- The feature-request response now surfaces related issues as human connections:
+  it can name a requester when that name was voluntarily included and invite the
+  visitor to reach out, turning the issue search into a collaboration starting
+  point rather than a ticket lookup.
+- Added the Basecamp handoff to the feature-request flow. The guide offers an
+  invitation to the gep.agent project, asks for the email the visitor wants used,
+  adds the person to project 49482084, and posts a short message linking the
+  issue and inviting the conversation. The issue remains valid if Basecamp
+  fails; the handoff is reported separately.
+- Dashboard result on the collaboration-pass head commit: **GREEN** on all six
+  gates; 27 site/assistant tests pass.

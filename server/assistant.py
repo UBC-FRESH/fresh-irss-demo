@@ -33,6 +33,7 @@ MODEL = os.environ.get("FRESH_ASSISTANT_MODEL", "opencode-go/deepseek-v4.1-flash
 OPENCODE = os.environ.get("FRESH_ASSISTANT_OPENCODE", "opencode")
 MODEL_TIMEOUT = float(os.environ.get("FRESH_ASSISTANT_TIMEOUT", "90"))
 DOCS_WEB = ROOT / "_build" / "html"
+PERSONA_FILE = ROOT / "web" / "assistant" / "AGENTS.md"
 DEMO_REPO = "https://github.com/UBC-FRESH/fresh-irss-demo/blob/main"
 REGISTRY_REPO = "https://github.com/UBC-FRESH/irss-expansion/blob/main"
 
@@ -223,15 +224,19 @@ def ask(message: str, context: dict[str, object] | None = None) -> dict[str, obj
     evidence = "\n\n".join(
         f"[{item['label']}]({item['url']})\n{item['snippet']}" for item in sources
     )
+    persona = (
+        PERSONA_FILE.read_text(encoding="utf-8").strip()
+        if PERSONA_FILE.is_file()
+        else "You are the FRESH x IRSS demo guide. Answer clearly from the evidence."
+    )
     prompt = (
-        "You are the FRESH x IRSS + Silva21 demo assistant. You have read-only "
-        "access to every repository in this workspace. Use the provided excerpts and "
-        "read relevant local files when they help. Do not invent RMSE, coverage, "
-        "model capability, status, or dataset IDs. Explicitly say when the evidence "
-        "does not support an answer. Answer directly from the excerpts below; only "
-        "read more if a needed fact is absent, and do not enumerate directories or "
-        "duplicate checkouts. Keep the reply under 220 words and cite the source "
-        "labels or repository paths used.\n\n"
+        f"{persona}\n\n"
+        "Follow the visitor contract above. You also have read-only access to every "
+        "repository in this workspace. Use the provided excerpts first; read a local "
+        "file only when a needed fact is absent. Do not invent RMSE, coverage, model "
+        "capability, status, or dataset IDs. Answer directly from the excerpts below; "
+        "do not enumerate directories or duplicate checkouts. Keep the reply under "
+        "200 words and cite the source labels or repository paths used.\n\n"
         f"UI context: {json.dumps(context or {}, ensure_ascii=False)[:MAX_CONTEXT]}\n\n"
         f"Evidence:\n{evidence}\n\nUser: {cleaned}"
     )

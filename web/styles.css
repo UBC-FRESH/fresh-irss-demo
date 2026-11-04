@@ -2368,3 +2368,119 @@ code {
   background: var(--panel-soft);
   font-weight: 750;
 }
+
+/* -------------------------------------------------------------- collaborate */
+
+.collab-section {
+  background:
+    radial-gradient(ellipse at 18% 20%, rgba(158, 209, 195, 0.16), transparent 55%),
+    radial-gradient(ellipse at 90% 85%, rgba(180, 83, 9, 0.14), transparent 50%),
+    var(--accent-deep);
+}
+
+.collab-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(19rem, 0.8fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.collab-copy h2 {
+  max-width: 42rem;
+  margin-bottom: 1rem;
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 500;
+}
+
+.collab-invite {
+  max-width: 42rem;
+  margin: 1.2rem 0 1.4rem;
+  padding-left: 0.8rem;
+  border-left: 3px solid #9ed1c3;
+  color: #d9ece6;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.collab-invite strong {
+  color: #fff;
+}
+
+.collab-card {
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  border: 1px solid rgba(217, 236, 230, 0.25);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.16);
+}
+
+.collab-kicker {
+  margin-bottom: 0.5rem;
+  color: #9ed1c3;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.collab-card h3 {
+  margin-bottom: 0.2rem;
+  font-family: var(--display);
+  font-size: 1.65rem;
+  font-weight: 500;
+}
+
+.collab-role {
+  margin-bottom: 1rem;
+  color: #c7ddd6;
+  font-size: 0.82rem;
+}
+
+.collab-contact,
+.collab-address {
+  color: #eef6f3;
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.collab-contact {
+  margin-bottom: 0.8rem;
+}
+
+.collab-contact a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+}
+
+.collab-address {
+  color: #c7ddd6;
+}
+
+.collab-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(217, 236, 230, 0.2);
+}
+
+.collab-links a {
+  color: #d9ece6;
+  font-size: 0.8rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.collab-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .collab-grid {
+    grid-template-columns: 1fr;
+  }
+}
