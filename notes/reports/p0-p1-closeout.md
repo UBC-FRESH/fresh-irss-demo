@@ -54,6 +54,14 @@ Manual browser checks (Chromium 156):
 - TFL 6 fixture: https://github.com/UBC-FRESH/fhops/tree/main/examples/lidar_tfl6
 - INV-01 pilot release: https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-ba-pilot-release.md
 
+## Source state at publication
+
+- FEMIC #378, #379, and #380 are merged.
+- ws4 #398, #463, #471, #475, #698, and #741 are merged.
+- FHOPS #383 is open. CARB-03 is recorded as adopted in the registry, but the
+  card says "open PR" rather than implying a merged result.
+- `DIS-03` remains deferred; the static DHI/recovery layers are not alerts.
+
 ## What is not done
 
 - No live LLM. The drawer is disabled and `assistantEndpoint` is `null`.

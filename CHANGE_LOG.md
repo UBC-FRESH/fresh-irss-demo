@@ -16,6 +16,9 @@ status and the GitHub issue comments.
   GeoJSON fixture, the four-row synthetic climate-contract sample, the disabled
   HectaresBC-style assistant drawer, the provenance and limitations panel, and a
   responsive accessible page shell.
+- Recorded the operations evidence precisely: CARB-03 is adopted in the
+  registry, but FHOPS PR #383 was still open at publication, so the card says
+  "open PR" rather than implying a merged result.
 - Added the public data boundary: the TFL 6 fixture retains OGL-BC attribution
   and its FHOPS provenance record; machine rates, work volumes, productivity,
   landing capacity, and the road job remain synthetic; no raw raster, private

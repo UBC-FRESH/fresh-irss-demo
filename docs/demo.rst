@@ -48,8 +48,8 @@ The eight lanes
    * - Operations
      - ``CARB-03``, ``OPS-01``
      - Adopted + shortlisted
-     - A bounded ``salvage.decay.v1`` slice and shelf-life report; commercial
-       thinning prioritisation is shortlisted.
+     - An open FHOPS pull request adds a bounded ``salvage.decay.v1`` slice and
+       shelf-life report; commercial thinning prioritisation is shortlisted.
    * - Provenance
      - ``DEC-03``, ``DEC-04``, ``DEC-02``
      - Complete

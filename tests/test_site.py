@@ -31,6 +31,7 @@ REMOTE_HOSTS = {
     "research.fs.usda.gov",
     "hero.epa.gov",
     "task43.ieabioenergy.com",
+    "ubc-fresh.github.io",
 }
 
 
