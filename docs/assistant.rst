@@ -97,6 +97,10 @@ with the answer, use plain language, distinguish status from evidence, and invit
 interested visitors to contact Greg and the FRESH lab. The public contact surface
 is the ``#collaborate`` section of the demo.
 
+The opening hint in the drawer tells visitors that the guide can also draft
+a feature request for the registry and invite them to the Basecamp
+conversation when their work is not in the registry yet.
+
 Citation URLs are mapped to maintained sources: ``docs/`` pages are served from
 the local Sphinx build at ``/docs/``, demo notes and web evidence point at this
 repository, and expansion notes and registry paths point at

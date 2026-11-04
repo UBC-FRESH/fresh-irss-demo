@@ -131,5 +131,13 @@ status and the GitHub issue comments.
   adds the person to project 49482084, and posts a short message linking the
   issue and inviting the conversation. The issue remains valid if Basecamp
   fails; the handoff is reported separately.
+- Added an opening-move hint to the drawer and the visitor contract: at the start
+  of a conversation the guide makes the issue/Basecamp capability visible in one
+  short line, without turning the first answer into process instructions.
+- Added an animated hourglass and “Thinking through the evidence…” status to the
+  assistant drawer while a request is in flight. The indicator is hidden by
+  default, announced as a status, and respects reduced-motion preferences.
+- Fixed the header at 1024–1200 px widths so the added Collaborate link no
+  longer pushes the Ask control outside the viewport.
 - Dashboard result on the collaboration-pass head commit: **GREEN** on all six
   gates; 27 site/assistant tests pass.

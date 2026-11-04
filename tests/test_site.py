@@ -285,6 +285,16 @@ def test_registry_snapshot_matches_the_registry_counts() -> None:
     assert len(snapshot["workstreams"]) == 9
 
 
+def test_assistant_has_a_thinking_indicator() -> None:
+    """The chat drawer exposes a visible, accessible waiting state."""
+    text = INDEX.read_text(encoding="utf-8")
+    script = (WEB / "app.js").read_text(encoding="utf-8")
+    assert 'id="assistant-thinking"' in text
+    assert "Thinking through the evidence" in text
+    assert "setThinking(true)" in script
+    assert "setThinking(false)" in script
+
+
 def test_assistant_is_disabled_by_default() -> None:
     text, parser = _parse()
     panel = text.split('id="assistant-panel"', 1)[1].split("</aside>", 1)[0]
@@ -330,6 +340,8 @@ def test_page_has_a_collaboration_contact_surface() -> None:
         "https://fresh.forestry.ubc.ca/",
         "https://forestry.ubc.ca/faculty-profile/gregory-paradis",
         "https://github.com/gparadis",
+        "feature",
+        "Basecamp",
     ):
         assert fragment in text
 
