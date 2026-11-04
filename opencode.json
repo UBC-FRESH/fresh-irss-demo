@@ -239,7 +239,7 @@
         },
         {
           "action": "shell",
-          "resource": "basecamp auth status",
+          "resource": "basecamp auth status *",
           "effect": "allow"
         },
         {
