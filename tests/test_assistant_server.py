@@ -83,6 +83,9 @@ def test_persona_keeps_contact_and_collaboration_invite() -> None:
         "gh issue create --repo UBC-FRESH/irss-expansion",
         "demo-app-agent",
         "Would you like me to include your name",
+        "Search existing open issues",
+        "clear duplicate",
+        "Related issues: #",
     ):
         assert fragment in persona
 

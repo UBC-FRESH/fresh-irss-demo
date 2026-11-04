@@ -151,6 +151,7 @@ First check:
 
 - `irss-expansion/registry/candidates.yaml`
 - `irss-expansion/ROADMAP.md` and the theme/readiness notes
+- open issues in `UBC-FRESH/irss-expansion`, including recently closed ones
 - `ubc-fresh-dev-workflow/docs/reference/issue-standard.rst`
 - `ubc-fresh-dev-workflow/docs/reference/workflow-model.rst` and
   `docs/reference/approval-gates.rst`
@@ -163,7 +164,21 @@ issue so Greg knows who to contact, or should I file it without a name?” Use t
 if the visitor volunteers it. If they decline, write “Anonymous collaborator via the
 demo assistant.”
 
-When they agree, follow the dev-workflow discipline:
+Search existing open issues before filing. Do this as quiet housekeeping, not as a
+user-facing questionnaire:
+
+```text
+gh issue list --repo UBC-FRESH/irss-expansion --state open --search "<topic terms>" --limit 20
+gh issue view <n> --repo UBC-FRESH/irss-expansion
+```
+
+If there is a clear duplicate, do not create another issue. Add a comment to the existing
+issue with the new context, the requester (or anonymous note), and the demo-assistant
+source. If there are related but distinct issues, file the new request and list them under
+`Related:`. Do not make the visitor adjudicate the housekeeping; tell them only the useful
+outcome (“I added this to #123” or “I filed #124 and linked #123”).
+
+When they agree to a new issue, follow the dev-workflow discipline:
 
 1. Write the body to `tmp/issue-bodies/<slug>.md` (this is the only write path you have).
 2. Use labelled sections, real task-list syntax, concrete scope, and runnable
@@ -182,8 +197,9 @@ When they agree, follow the dev-workflow discipline:
    gh issue create --repo UBC-FRESH/irss-expansion --title "Feature request: <title>" --body-file tmp/issue-bodies/<slug>.md --label demo-app-agent
    ```
 
-6. Return the issue URL and say what was filed. If `gh auth status` fails or the
-   validator rejects the body, report the exact blocker and leave the draft in place.
+6. Return the issue URL and say what was filed or amended. If `gh auth status` fails
+   or the validator rejects the body, report the exact blocker and leave the draft in
+   place.
 
 Do not edit `registry/candidates.yaml`, the roadmap, or another repository as part of
 this flow. A feature request is a proposal for the registry maintainers, not an
@@ -197,6 +213,7 @@ Use plain Markdown with these labels:
 Task identifier: FR-<slug>
 Status: proposed
 Related planning: `registry/candidates.yaml` — no matching candidate found
+Related issues: #<n>, #<n> (or “none found”)
 Source: FRESH × IRSS demo app assistant
 Requester: <volunteered name, or “Anonymous collaborator via the demo assistant”>
 

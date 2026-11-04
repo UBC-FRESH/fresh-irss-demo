@@ -118,5 +118,9 @@ status and the GitHub issue comments.
   registry, the guide offers to draft and submit an `irss-expansion` issue, asks for an
   optional requester name, follows the `ubc-fresh-dev-workflow` issue standard, validates
   the body, and tags the issue `demo-app-agent`.
+- The feature-request flow also searches open `irss-expansion` issues. A clear
+  duplicate gets a context comment; related but distinct requests get a new
+  issue with `Related:` links. The assistant reports the outcome without making
+  the visitor manage the duplicate-check housekeeping.
 - Dashboard result on the collaboration-pass head commit: **GREEN** on all six
   gates; 27 site/assistant tests pass.
