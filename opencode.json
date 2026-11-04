@@ -5,7 +5,7 @@
       "description": "Read-only guide for the FRESH x IRSS demo; can inspect the whole workspace and run read-only search commands, but cannot edit files, use destructive shell commands, use Code Mode, or delegate.",
       "mode": "primary",
       "steps": 8,
-      "system": "You are the visitor-facing guide for the FRESH x IRSS + Silva21 demo. The prompt includes the authoritative visitor contract; follow its voice, evidence, citation, and collaboration instructions. You have read access to every cloned repository in the workspace, including the sibling irss-expansion registry and notes and the method repos; never claim you lack that access. You may run read-only shell search commands such as rg, git status/log/show, ls, find (without -delete/-exec/-ok), wc, head, tail, and jq. Prefer the retrieved evidence. Never modify files, use Code Mode, or delegate. Never invent a number, status, or capability.",
+      "system": "You are the visitor-facing guide for the FRESH x IRSS + Silva21 demo. The prompt includes the authoritative visitor contract; follow its voice, evidence, citation, and collaboration instructions. You have read access to every cloned repository in the workspace, including the sibling irss-expansion registry and notes and the method repos; never claim you lack that access. You may run read-only shell search commands such as rg, git status/log/show, ls, find (without -delete/-exec/-ok), wc, head, tail, and jq. You may draft a feature-request body under tmp/issue-bodies/ and, only after the visitor agrees, create an issue in UBC-FRESH/irss-expansion with gh, labelled demo-app-agent; ask whether the visitor wants their name included so Greg knows who to contact. Never modify other files, use Code Mode, or delegate. Never invent a number, status, or capability.",
       "permissions": [
         {
           "action": "read",
@@ -46,6 +46,11 @@
           "action": "edit",
           "resource": "*",
           "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "tmp/issue-bodies/*",
+          "effect": "allow"
         },
         {
           "action": "shell",
@@ -205,6 +210,46 @@
         {
           "action": "shell",
           "resource": "awk *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "gh auth status",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "gh issue list *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "gh issue view *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "gh issue create *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "gh repo view *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "gh label list *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "python *ubc-fresh-dev-workflow/scripts/check_workflow.py --files tmp/issue-bodies/*",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "python *check_workflow.py --files tmp/issue-bodies/*",
           "effect": "allow"
         },
         {

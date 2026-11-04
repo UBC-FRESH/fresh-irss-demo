@@ -85,8 +85,11 @@ are limited to http(s), mailto, same-origin paths, and fragments. Citations are
 rendered as a separate list below the answer, so a citation is never mistaken
 for part of the model prose.
 
-The visitor-facing voice, evidence rules, and collaboration invitation live in
-``web/assistant/AGENTS.md`` and are loaded into every prompt. The contract tells
+The visitor-facing voice, evidence rules, collaboration invitation, and feature-request
+flow live in ``web/assistant/AGENTS.md`` and are loaded into every prompt. If a visitor
+asks about work that is not in the registry, the guide can draft a feature request for
+``UBC-FRESH/irss-expansion``, ask for permission and an optional name, validate the body
+with the dev-workflow checker, and file it with the ``demo-app-agent`` label. The contract tells
 the guide to lead with the answer, use plain language, distinguish status from
 evidence, and invite interested visitors to contact Greg and the FRESH lab. The
 public contact surface is the ``#collaborate`` section of the demo.

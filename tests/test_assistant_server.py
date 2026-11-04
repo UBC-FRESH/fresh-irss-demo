@@ -79,6 +79,10 @@ def test_persona_keeps_contact_and_collaboration_invite() -> None:
         "https://forestry.ubc.ca/faculty-profile/gregory-paradis",
         "https://github.com/gparadis",
         "Invite the next conversation",
+        "feature request for the",
+        "gh issue create --repo UBC-FRESH/irss-expansion",
+        "demo-app-agent",
+        "Would you like me to include your name",
     ):
         assert fragment in persona
 
