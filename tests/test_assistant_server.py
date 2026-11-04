@@ -59,6 +59,7 @@ def test_ask_uses_fake_opencode(monkeypatch: pytest.MonkeyPatch) -> None:
     assert result["citations"]
     command = " ".join(seen["command"]).lower()
     assert "climate" in command
+    assert "--standalone" in command
     assert "--agent irss-guide" in command
     assert "--auto" not in command
 
@@ -69,8 +70,14 @@ def test_agent_config_is_read_only(tmp_path: Path) -> None:
     permissions = config["agents"]["irss-guide"]["permissions"]
     denied = {rule["action"] for rule in permissions if rule["effect"] == "deny"}
     allowed = {rule["action"] for rule in permissions if rule["effect"] == "allow"}
-    assert {"edit", "shell", "subagent", "execute"} <= denied
-    assert {"read", "glob", "grep", "external_directory"} <= allowed
+    assert {"edit", "subagent", "execute"} <= denied
+    assert {"read", "glob", "grep", "external_directory", "shell"} <= allowed
+    shell_rules = [rule for rule in permissions if rule["action"] == "shell"]
+    assert any(rule["resource"] == "*" and rule["effect"] == "deny" for rule in shell_rules)
+    assert any(rule["resource"] == "rg *" and rule["effect"] == "allow" for rule in shell_rules)
+    assert any(
+        rule["resource"] == "git status *" and rule["effect"] == "allow" for rule in shell_rules
+    )
     assert config["agents"]["irss-guide"]["mode"] == "primary"
 
 

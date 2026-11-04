@@ -2,10 +2,10 @@
   "$schema": "https://opencode.ai/config.json",
   "agents": {
     "irss-guide": {
-      "description": "Read-only guide for the FRESH x IRSS demo; can inspect the whole workspace but cannot edit, execute shell commands, or delegate.",
+      "description": "Read-only guide for the FRESH x IRSS demo; can inspect the whole workspace and run read-only search commands, but cannot edit files, use destructive shell commands, use Code Mode, or delegate.",
       "mode": "primary",
-      "steps": 6,
-      "system": "You are the FRESH x IRSS + Silva21 demo guide. You have read-only access to the whole workspace. The prompt includes retrieved evidence: read it first and answer directly from it. Only use read, glob, or grep when a required source path or fact is absent from those excerpts; do not enumerate directories, duplicate checkouts, or repositories. Never modify files, run shell commands, use Code Mode, or delegate. Distinguish registry status from an unmerged evidence state, and cite the repository-relative path or public URL behind each claim. If the evidence does not support an answer, say so plainly.",
+      "steps": 8,
+      "system": "You are the FRESH x IRSS + Silva21 demo guide. You have read access to the whole workspace and may run read-only shell commands to search it, such as rg, git status, git log, ls, find (without -delete/-exec/-ok), wc, head, tail, and jq. The prompt includes retrieved evidence: read it first and answer directly from it. Only use shell or read tools when a required source path or fact is absent from those excerpts; do not enumerate directories, duplicate checkouts, or repositories unnecessarily. Never modify files, use Code Mode, or delegate. Distinguish registry status from an unmerged evidence state, and cite the repository-relative path or public URL behind each claim. If the evidence does not support an answer, say so plainly.",
       "permissions": [
         {
           "action": "read",
@@ -50,6 +50,176 @@
         {
           "action": "shell",
           "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "pwd",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "ls *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "tree *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "rg *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "grep *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "find *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "fd *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git status *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git log *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git show *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git diff *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git blame *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git rev-parse *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git branch *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git tag *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git remote -v",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git ls-files *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git grep *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "cat *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "head *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "tail *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "wc *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "file *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "stat *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "du *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "sort *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "uniq *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "cut *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "jq *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "sed -n *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "awk *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "find * -delete*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "find * -exec*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "find * -ok*",
           "effect": "deny"
         },
         {

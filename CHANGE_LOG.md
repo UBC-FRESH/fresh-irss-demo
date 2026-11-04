@@ -73,9 +73,9 @@ status and the GitHub issue comments.
   paths point at ``irss-expansion``. Removed the retired ``irss-expansion``
   GitHub Pages prefix and added URL-mapping contract tests.
 - Constrained the app agent to read-only workspace access. The `irss-guide`
-  agent can read every cloned repo under the workspace for context, but cannot
-  edit files, run shell commands, use the web, or launch subagents. Removed
-  `--auto` from the provider invocation.
+  agent can read every cloned repo and run read-only search commands, but cannot
+  edit files, run destructive shell commands, use Code Mode, use the web, or
+  launch subagents. Removed `--auto` from the provider invocation.
 - Indexed the sibling `irss-expansion` registry and notes, demo notes, docs, and
   lane/lab evidence; replaced the length-normalized overlap score with BM25 and
   added a relevance floor. Citation docs now resolve to the local `/docs/`
@@ -90,8 +90,10 @@ status and the GitHub issue comments.
 ## 2026-11-04
 
 - Assistant context pass: the `irss-guide` agent now has read access to every
-  cloned repository under the workspace, while edit, shell, Code Mode, web, and
-  subagent actions are denied. The provider invocation no longer uses `--auto`.
+  cloned repository and a read-only shell search allowlist (`rg`, `git` reads,
+  `ls`, `find` without mutation flags). Edit, destructive shell, Code Mode, web,
+  and subagent actions are denied. The provider invocation no longer uses
+  `--auto`.
 - Assistant evidence pass: index the sibling `irss-expansion` registry and notes,
   index nested demo notes and lane/lab evidence, replace the length-normalized
   overlap score with BM25, and serve the current Sphinx build at `/docs/` for

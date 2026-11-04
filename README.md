@@ -70,8 +70,10 @@ python server/assistant.py --port 8765
 ```
 
 The service uses the local `opencode` CLI with a read-only `irss-guide` agent.
-The agent can read every cloned repository under the workspace for context, but
-cannot edit files, run shell commands, use Code Mode, or launch subagents. It
+The agent can read every cloned repository under the workspace and run read-only
+search commands such as `rg`, `git status`/`log`/`show`, `ls`, and `find`
+without mutation flags. Edit, destructive shell, Code Mode, web, and subagent
+actions are denied. It
 retrieves the sibling `irss-expansion` registry and notes when available. No
 provider key is put in the browser. The static GitHub Pages
 deployment stays disabled because it has no backend. See

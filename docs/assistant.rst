@@ -44,8 +44,10 @@ the top evidence from the sibling `irss-expansion` registry and notes when that
 checkout is available, plus this demo's docs and lane data. It invokes the local
 `opencode` CLI with the read-only `irss-guide` agent server-side, and returns
 `reply` plus `citations`. The agent may read every cloned repository under the
-workspace for context; its configuration denies edit, shell, Code Mode, web, and
-subagent actions. Set `FRESH_ASSISTANT_MODEL` to choose the provider
+workspace for context and may run read-only search commands such as ``rg``,
+``git status``/``log``/``show``, ``ls``, and ``find`` without mutation flags.
+Its configuration denies edit, destructive shell, Code Mode, web, and subagent
+actions. Set `FRESH_ASSISTANT_MODEL` to choose the provider
 model, `FRESH_ASSISTANT_TIMEOUT` to cap a turn, and
 `FRESH_ASSISTANT_EXPANSION` or `FRESH_ASSISTANT_REGISTRY` if the evidence
 checkout lives elsewhere. The service rejects oversized requests. The public

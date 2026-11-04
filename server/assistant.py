@@ -238,6 +238,7 @@ def ask(message: str, context: dict[str, object] | None = None) -> dict[str, obj
     command = [
         OPENCODE,
         "run",
+        "--standalone",
         "--agent",
         "irss-guide",
         "--model",
