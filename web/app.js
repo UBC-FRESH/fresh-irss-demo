@@ -388,6 +388,7 @@
     var model = document.getElementById("assistant-model");
     var disabledNote = document.getElementById("assistant-disabled-note");
     var clearButton = document.getElementById("assistant-clear");
+    var thinking = document.getElementById("assistant-thinking");
     var lastTrigger = null;
     var busy = false;
 
@@ -397,6 +398,12 @@
       }
       status.textContent = text;
       status.style.color = isError ? "#8f1d1d" : "";
+    }
+
+    function setThinking(isThinking) {
+      if (thinking) {
+        thinking.hidden = !isThinking;
+      }
     }
 
     function appendMessage(role, text) {
@@ -581,6 +588,7 @@
           return;
         }
         busy = true;
+        setThinking(true);
         if (send) {
           send.disabled = true;
         }
@@ -625,6 +633,7 @@
           })
           .finally(function () {
             busy = false;
+            setThinking(false);
             if (send) {
               send.disabled = false;
             }

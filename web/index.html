@@ -18,7 +18,7 @@
     <meta name="twitter:title" content="FRESH × IRSS + Silva21">
     <meta name="twitter:description" content="Eight integration lanes, a public fixture, and explicit boundaries. Static demo, no live model endpoint.">
     <link rel="icon" href="favicon.svg?v=20261103-p1" type="image/svg+xml">
-    <link rel="stylesheet" href="styles.css?v=20261104-p2">
+    <link rel="stylesheet" href="styles.css?v=20261104-p5">
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -1049,8 +1049,9 @@
           until a safe, same-origin local backend is available.
         </p>
         <p class="assistant-hint">
-          A live version would answer from the integration registry and cite the note or merged
-          change behind each claim.
+          Ask about an integration or the evidence. When enabled, I can also draft a feature
+          request for the <code>irss-expansion</code> registry and invite you to the Basecamp
+          conversation if your work is not there yet.
         </p>
       </div>
 
@@ -1059,6 +1060,16 @@
         <button type="button" disabled>What does the map show?</button>
         <button type="button" disabled>Where is the carbon boundary?</button>
         <button type="button" disabled>How can I collaborate with FRESH?</button>
+        <button type="button" disabled>What if my idea is not in the registry?</button>
+      </div>
+
+      <div id="assistant-thinking" class="assistant-thinking" role="status" aria-live="polite" hidden>
+        <span class="hourglass" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M7 2h10M7 22h10M8 2v4c0 2 2 4 4 6-2 2-4 4-4 6v4M16 2v4c0 2-2 4-4 6 2 2 4 4 4 6v4"/>
+          </svg>
+        </span>
+        <span>Thinking through the evidence…</span>
       </div>
 
       <form id="assistant-form" class="assistant-form">
@@ -1090,6 +1101,6 @@
     <script src="lanes.js?v=20261104-p2"></script>
     <script src="lab.js?v=20261104-p2"></script>
     <script src="markdown.js?v=20261104-p2" defer></script>
-    <script src="app.js?v=20261104-p2" defer></script>
+    <script src="app.js?v=20261104-p3" defer></script>
   </body>
 </html>
