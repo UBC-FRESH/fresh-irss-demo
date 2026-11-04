@@ -172,10 +172,10 @@ class AssistantHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         """Serve the static demo and assistant status."""
         path = urlparse(self.path).path
-        if path == "/api/assistant":
+        if path.rstrip("/") == "/api/assistant":
             self._json(HTTPStatus.OK, {"available": True, "model": MODEL})
             return
-        if path == "/config.js":
+        if path.rstrip("/") == "/config.js":
             body = b'window.FRESH_IRSS_DEMO = {assistantEndpoint: "/api/assistant"};\n'
             self._send(HTTPStatus.OK, body, "text/javascript")
             return
@@ -190,7 +190,7 @@ class AssistantHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         """Answer one same-origin assistant request."""
-        if urlparse(self.path).path != "/api/assistant":
+        if urlparse(self.path).path.rstrip("/") != "/api/assistant":
             self._json(HTTPStatus.NOT_FOUND, {"error": "not found"})
             return
         length = int(self.headers.get("Content-Length", "0"))
