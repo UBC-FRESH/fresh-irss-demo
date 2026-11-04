@@ -33,6 +33,8 @@ REMOTE_HOSTS = {
     "task43.ieabioenergy.com",
     "ubc-fresh.github.io",
     "01101.dev",
+    "fresh.forestry.ubc.ca",
+    "forestry.ubc.ca",
 }
 
 
@@ -136,7 +138,7 @@ def test_ids_are_unique_and_links_resolve() -> None:
     for fragment in re.findall(r'href="#([^"]+)"', text):
         assert fragment in parser.ids
     for link in parser.links:
-        if link.startswith(("http://", "https://", "mailto:", "#")):
+        if link.startswith(("http://", "https://", "mailto:", "tel:", "#")):
             assert not link.startswith("http://"), link
             if link.startswith("https://"):
                 host = urlsplit(link).hostname or ""
@@ -315,6 +317,21 @@ def test_no_private_paths_in_web_assets() -> None:
             continue
         text = path.read_text(encoding="utf-8")
         assert not PRIVATE_PATH_RE.search(text), path
+
+
+def test_page_has_a_collaboration_contact_surface() -> None:
+    """The collaboration call to action keeps the public contact details intact."""
+    text = INDEX.read_text(encoding="utf-8")
+    for fragment in (
+        'id="collaborate"',
+        "gregory.paradis@ubc.ca",
+        "(604) 822-1890",
+        "Office 4645",
+        "https://fresh.forestry.ubc.ca/",
+        "https://forestry.ubc.ca/faculty-profile/gregory-paradis",
+        "https://github.com/gparadis",
+    ):
+        assert fragment in text
 
 
 def test_page_states_the_public_boundary() -> None:

@@ -108,3 +108,11 @@ status and the GitHub issue comments.
 - Dashboard result on the accuracy-pass head commit: **GREEN**. Lint, format,
   `mypy --strict`, 164 tests, workflow validator, and Sphinx with warnings as
   errors all passed.
+- Added a visitor-facing assistant contract at `web/assistant/AGENTS.md`, loaded
+  into every assistant prompt. It sets the tone, answer shape, evidence rules,
+  navigation cues, and a direct collaboration invitation.
+- Added a `#collaborate` section to the demo with Greg's FRESH Lab, UBC faculty
+  page, GitHub, email, phone, and office details, plus a strong invitation to
+  bring IRSS/Silva21 methods and datasets into FRESH decision tools.
+- Dashboard result on the collaboration-pass head commit: **GREEN** on all six
+  gates; 27 site/assistant tests pass.
