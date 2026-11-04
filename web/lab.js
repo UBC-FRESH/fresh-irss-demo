@@ -11,16 +11,18 @@
         { name: "Volume RMSE (m³/ha)", values: [74.74, 62.93, 52.06], color: "#b7791f" }
       ],
       note: "BA and volume use different scales. The hybrid/refit numbers are the independent in-domain results; the current cards have only 10 in-range plots. Lower is better.",
-      sourceLabel: "TSA 23 validation report",
-      source: "https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-bc-validation.md"
+      sources: [
+        ["TSA 23 validation report", "https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-bc-validation.md"],
+        ["Refit applicability report", "https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-refit-applicability.md"]
+      ]
     },
     lag: {
       title: "Volume error by ground-to-LiDAR lag",
       labels: ["0-5 y", "6-10 y", "11-20 y", "21-30 y", ">30 y"],
       series: [{ name: "Volume RMSE (m³/ha)", values: [67.02, 53.20, 71.97, 99.06, 116.44], color: "#9b2c2c" }],
       note: "The older plots do not provide a hidden validation set. Error rises sharply after 20 years; this is sensitivity evidence, not current-condition validation.",
-      sourceLabel: "Time-lag validation report",
-      source: "https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-bc-validation.md"
+      sourceLabel: "Time-lag report",
+      source: "https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-time-lag.md"
     },
     salvage: {
       title: "Salvage net-volume retention",
@@ -152,15 +154,21 @@
     table.appendChild(tbody);
     target.appendChild(table);
 
+    var sources = view.sources || [[view.sourceLabel, view.source]];
     var source = document.createElement("p");
     source.className = "lab-source";
-    source.append(document.createTextNode("Source: "));
-    var link = document.createElement("a");
-    link.href = view.source;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.textContent = view.sourceLabel;
-    source.appendChild(link);
+    source.append(document.createTextNode("Sources: "));
+    sources.forEach(function (pair, index) {
+      if (index > 0) {
+        source.append(document.createTextNode(" · "));
+      }
+      var link = document.createElement("a");
+      link.href = pair[1];
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = pair[0];
+      source.appendChild(link);
+    });
     target.appendChild(source);
   }
 

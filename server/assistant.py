@@ -22,79 +22,178 @@ from urllib.parse import quote, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "web"
-REGISTRY = ROOT / "registry" / "candidates.yaml"
-NOTE_DIRS = (ROOT / "notes", ROOT / "docs")
+WORKSPACE = ROOT.parent.parent
+EXPANSION_ROOT = Path(os.environ.get("FRESH_ASSISTANT_EXPANSION", WORKSPACE / "irss-expansion"))
+REGISTRY = Path(
+    os.environ.get("FRESH_ASSISTANT_REGISTRY", EXPANSION_ROOT / "registry" / "candidates.yaml")
+)
 MAX_MESSAGE = 4000
 MAX_CONTEXT = 6000
-RATE_LIMIT = 12
-RATE_WINDOW = 60.0
 MODEL = os.environ.get("FRESH_ASSISTANT_MODEL", "opencode-go/deepseek-v4.1-flash")
 OPENCODE = os.environ.get("FRESH_ASSISTANT_OPENCODE", "opencode")
 MODEL_TIMEOUT = float(os.environ.get("FRESH_ASSISTANT_TIMEOUT", "90"))
-DOCS_BASE = "https://ubc-fresh.github.io/fresh-irss-demo/docs"
+DOCS_WEB = ROOT / "_build" / "html"
 DEMO_REPO = "https://github.com/UBC-FRESH/fresh-irss-demo/blob/main"
 REGISTRY_REPO = "https://github.com/UBC-FRESH/irss-expansion/blob/main"
 
 
+STOPWORDS = {
+    "the",
+    "and",
+    "for",
+    "with",
+    "from",
+    "this",
+    "that",
+    "what",
+    "which",
+    "are",
+    "was",
+    "were",
+    "has",
+    "have",
+    "how",
+    "does",
+    "not",
+    "but",
+    "you",
+    "your",
+    "can",
+    "all",
+    "any",
+    "may",
+    "its",
+    "into",
+    "about",
+    "their",
+    "they",
+    "will",
+    "more",
+    "than",
+    "then",
+    "when",
+    "where",
+    "who",
+    "why",
+    "use",
+    "using",
+    "our",
+    "out",
+    "per",
+    "also",
+}
+
+
 def _tokens(text: str) -> set[str]:
-    return {word for word in re.findall(r"[a-z0-9]+", text.lower()) if len(word) > 2}
+    words = re.findall(r"[a-z0-9]+(?:-[a-z0-9]+)*", text.lower())
+    tokens = {word for word in words if len(word) > 2 and word not in STOPWORDS}
+    tokens.update(word.replace("-", "") for word in list(tokens) if "-" in word)
+    return tokens
 
 
 class EvidenceIndex:
-    """A small keyword index over registry and notes."""
+    """A small keyword index over the demo docs and the expansion evidence."""
 
-    def __init__(self, root: Path = ROOT) -> None:
+    def __init__(
+        self,
+        root: Path = ROOT,
+        expansion_root: Path = EXPANSION_ROOT,
+        registry: Path = REGISTRY,
+    ) -> None:
         self.root = root
-        self.documents: list[tuple[str, str, str]] = []
+        self.expansion_root = expansion_root
+        self.registry = registry
+        self.documents: list[tuple[str, str, str, str]] = []
         self._load()
 
     def _load(self) -> None:
-        for path in sorted(NOTE_DIRS[0].glob("*.md")):
-            self._add(path)
-        for path in sorted(NOTE_DIRS[1].rglob("*.rst")):
-            self._add(path)
-        if REGISTRY.is_file():
-            self.documents.append(
-                (
-                    "registry/candidates.yaml",
-                    "candidate registry queue",
-                    REGISTRY.read_text(encoding="utf-8"),
+        self._add_tree(self.root / "notes", "*.md", "demo", "notes")
+        self._add_tree(self.root / "docs", "*.rst", "demo", "docs")
+        self._add_tree(self.expansion_root / "notes", "*.md", "expansion", "notes")
+        for rel in ("web/lanes.js", "web/lab.js"):
+            path = self.root / rel
+            if path.is_file():
+                self._add_text(
+                    rel, path.stem.replace("_", " "), path.read_text(encoding="utf-8"), "demo"
                 )
+        if self.registry.is_file():
+            self._add_text(
+                "registry/candidates.yaml",
+                "candidate registry queue",
+                self.registry.read_text(encoding="utf-8"),
+                "expansion",
             )
 
-    def _add(self, path: Path) -> None:
-        text = path.read_text(encoding="utf-8")
-        rel = path.relative_to(self.root).as_posix()
-        self.documents.append((rel, path.stem.replace("_", " "), text))
+    def _add_tree(self, root: Path, pattern: str, origin: str, prefix: str) -> None:
+        if not root.is_dir():
+            return
+        for path in sorted(root.rglob(pattern)):
+            if path.is_file():
+                rel = prefix + "/" + path.relative_to(root).as_posix()
+                self._add_text(
+                    rel,
+                    path.stem.replace("_", " "),
+                    path.read_text(encoding="utf-8"),
+                    origin,
+                )
+
+    def _add_text(self, rel: str, title: str, text: str, origin: str) -> None:
+        self.documents.append((rel, title, text, origin))
 
     @staticmethod
-    def _public_url(rel: str) -> str:
+    def _public_url(rel: str, origin: str = "demo") -> str:
         """Map a local evidence path to its maintained public location."""
         safe_rel = quote(rel, safe="/")
         if rel.startswith("docs/"):
             doc_rel = rel.removeprefix("docs/").removesuffix(".rst")
-            return DOCS_BASE + "/" + quote(doc_rel, safe="/") + ".html"
-        if rel.startswith("registry/"):
+            return "/docs/" + quote(doc_rel, safe="/") + ".html"
+        if rel.startswith("registry/") or origin == "expansion":
             return REGISTRY_REPO + "/" + safe_rel
         return DEMO_REPO + "/" + safe_rel
 
     def search(self, query: str, limit: int = 4) -> list[dict[str, str]]:
-        """Return the highest-overlap evidence documents with public URLs."""
+        """Return the best BM25-matching evidence documents with public URLs."""
         wanted = _tokens(query)
         if not wanted:
             return []
-        scored: list[tuple[float, str, str, str]] = []
-        for rel, title, text in self.documents:
-            words = _tokens(text)
-            overlap = len(wanted & words)
-            if overlap == 0:
+        tokenized = [(_tokens(text), title.lower()) for _, title, text, _ in self.documents]
+        average_length = sum(len(words) for words, _ in tokenized) / max(1, len(tokenized))
+        document_frequency = {
+            token: sum(1 for words, _ in tokenized if token in words) for token in wanted
+        }
+        document_count = len(tokenized)
+        scored: list[tuple[float, str, str, str, str]] = []
+        for (rel, title, text, origin), (words, lower_title) in zip(
+            self.documents, tokenized, strict=True
+        ):
+            if not wanted & words:
                 continue
-            score = overlap / math.sqrt(max(1, len(words)))
-            scored.append((score, rel, title, text[:2600]))
+            score = 0.0
+            for token in wanted:
+                frequency = text.lower().count(token)
+                if not frequency:
+                    continue
+                idf = math.log(
+                    1.0
+                    + (document_count - document_frequency[token] + 0.5)
+                    / (document_frequency[token] + 0.5)
+                )
+                length_norm = 1.2 * (0.25 + 0.75 * len(words) / max(1.0, average_length))
+                score += idf * frequency * 2.2 / (frequency + length_norm)
+                if token in lower_title or token in rel.lower():
+                    score += idf * 2.0
+            if score > 0:
+                scored.append((score, rel, title, text[:2600], origin))
         scored.sort(reverse=True)
         result = []
-        for _, rel, title, snippet in scored[:limit]:
-            result.append({"label": title, "url": self._public_url(rel), "snippet": snippet})
+        for _, rel, title, snippet, origin in scored[:limit]:
+            result.append(
+                {
+                    "label": title,
+                    "url": self._public_url(rel, origin),
+                    "snippet": snippet,
+                }
+            )
         return result
 
 
@@ -125,14 +224,28 @@ def ask(message: str, context: dict[str, object] | None = None) -> dict[str, obj
         f"[{item['label']}]({item['url']})\n{item['snippet']}" for item in sources
     )
     prompt = (
-        "You are the FRESH x IRSS + Silva21 demo assistant. Answer only from the "
-        "provided public evidence. Do not invent RMSE, coverage, model capability, "
-        "or dataset IDs. Explicitly say when the evidence does not support an answer. "
-        "Keep the reply under 180 words and cite the source labels used.\n\n"
+        "You are the FRESH x IRSS + Silva21 demo assistant. You have read-only "
+        "access to every repository in this workspace. Use the provided excerpts and "
+        "read relevant local files when they help. Do not invent RMSE, coverage, "
+        "model capability, status, or dataset IDs. Explicitly say when the evidence "
+        "does not support an answer. Answer directly from the excerpts below; only "
+        "read more if a needed fact is absent, and do not enumerate directories or "
+        "duplicate checkouts. Keep the reply under 220 words and cite the source "
+        "labels or repository paths used.\n\n"
         f"UI context: {json.dumps(context or {}, ensure_ascii=False)[:MAX_CONTEXT]}\n\n"
         f"Evidence:\n{evidence}\n\nUser: {cleaned}"
     )
-    command = [OPENCODE, "run", "--model", MODEL, "--format", "json", "--auto", prompt]
+    command = [
+        OPENCODE,
+        "run",
+        "--agent",
+        "irss-guide",
+        "--model",
+        MODEL,
+        "--format",
+        "json",
+        prompt,
+    ]
     completed = subprocess.run(
         command,
         cwd=ROOT,
@@ -173,6 +286,12 @@ class AssistantHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _send_file(self, target: Path) -> None:
+        ctype = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
+        if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
+            ctype += "; charset=utf-8"
+        self._send(HTTPStatus.OK, target.read_bytes(), ctype)
+
     def _json(self, status: HTTPStatus, payload: dict[str, object]) -> None:
         self._send(status, json.dumps(payload).encode(), "application/json")
 
@@ -186,12 +305,15 @@ class AssistantHandler(BaseHTTPRequestHandler):
             body = b'window.FRESH_IRSS_DEMO = {assistantEndpoint: "/api/assistant"};\n'
             self._send(HTTPStatus.OK, body, "text/javascript")
             return
+        if path == "/docs" or path.startswith("/docs/"):
+            docs_rel = path.removeprefix("/docs/") or "index.html"
+            target = DOCS_WEB / docs_rel
+            if target.is_file() and DOCS_WEB in target.resolve().parents:
+                self._send_file(target)
+                return
         target = WEB / ("index.html" if path in ("", "/") else path.lstrip("/"))
         if target.is_file() and WEB in target.resolve().parents:
-            ctype = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
-            if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
-                ctype += "; charset=utf-8"
-            self._send(HTTPStatus.OK, target.read_bytes(), ctype)
+            self._send_file(target)
             return
         self._json(HTTPStatus.NOT_FOUND, {"error": "not found"})
 

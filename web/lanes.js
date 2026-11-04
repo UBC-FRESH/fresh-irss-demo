@@ -14,7 +14,7 @@
       flow: ['FEMIC ALS bundle', 'inventory.als model-card table', 'WS4 curve selection / Nemora'],
       metrics: [["2,942,755", "BA rows"], ["14.9%", "TSA BA coverage"], ["8.86 m²/ha", "strict BA RMSE"], ["2.54 m", "strict height RMSE"]],
       code: "femic lidar inventory --bundle <bundle> --model-key ba --instance-root <instance> --features <ba.csv>",
-      evidence: [["inventory.als contract", "https://github.com/UBC-FRESH/femic/pull/469"], ["BA-only release", "https://github.com/UBC-FRESH/femic-tsa23-instance/releases"], ["Validation report", "https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-bc-validation.md"]],
+      evidence: [["inventory.als contract", "https://github.com/UBC-FRESH/femic/pull/469"], ["BA pilot release note", "https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-ba-pilot-release.md"], ["Validation report", "https://github.com/UBC-FRESH/femic/blob/main/notes/reports/inv01-tsa23-bc-validation.md"]],
       boundary: "BA pilot only. Height failed independent validation; volume is research-only. Not an operational inventory."
     },
     climate: {
@@ -22,7 +22,7 @@
       status: "Complete",
       what: "femic.climate.v1 fixes units, scenario names, variance, and provenance so climate-sensitive methods share one input surface. It does not generate a new projection.",
       flow: ['Public climate table', 'femic.climate.v1', 'Growth and planning methods'],
-      metrics: [["1", "shared contract"], ["3", "scenario lanes"], ["0", "new GCMs"]],
+      metrics: [["1", "shared contract"], ["3", "target consumers"], ["0", "new GCMs"]],
       code: "femic climate load --table <climate.csv>",
       evidence: [["Climate contract", "https://github.com/UBC-FRESH/femic/pull/378"], ["First-wave brief", "https://github.com/UBC-FRESH/irss-expansion/blob/main/notes/05-first-wave.md"]],
       boundary: "A contract and adapter only. It does not claim a forecast or a validated climate response."
@@ -32,7 +32,7 @@
       status: "Complete",
       what: "femic.disturbance.v1 gives FEMIC, WS4, and FHOPS a shared event shape. NTEMS fire recovery is attached as a static block status; the failed NSR detector is not presented as an alert system.",
       flow: ['NTEMS + event records', 'femic.disturbance.v1', 'WS4 / FHOPS'],
-      metrics: [["1,497", "not-recovered blocks"], ["58", "slower-recovery blocks"], ["0.069%", "20-year volume effect"]],
+      metrics: [["1,497", "not-recovered blocks"], ["58", "slower-recovery blocks"], ["0.069% / 0.093%", "5- / 10-year volume effect"]],
       code: "femic disturbance summary --events <events.json>",
       evidence: [["Disturbance contract", "https://github.com/UBC-FRESH/femic/pull/379"], ["Recovery report", "https://github.com/UBC-FRESH/ws4/pull/499"]],
       boundary: "Recovery is spectral status, not survival. NSR is exploratory and failed its TSA 23 case-control test."
@@ -42,9 +42,9 @@
       status: "Complete",
       what: "DHI is attached as a static productivity surrogate and reported over surviving blocks. The Coops structure index is implemented, but the current FEMIC bundle does not expose the exact first-return metrics.",
       flow: ['Public DHI layers', 'Habitat account', 'WS4 objective'],
-      metrics: [["51,289", "DHI blocks"], ["3", "DHI bands"], ["0", "species models"]],
+      metrics: [["51,289", "North Island DHI blocks"], ["3", "DHI bands"], ["0", "species models"]],
       code: "ws4 simulate ... --dhi-values dhi_values.csv --dhi-metadata dhi_metadata.json",
-      evidence: [["DHI account", "https://github.com/UBC-FRESH/ws4/pull/463"], ["Structure index", "https://github.com/UBC-FRESH/ws4/pull/471"]],
+      evidence: [["DHI account", "https://github.com/UBC-FRESH/ws4/pull/463"], ["North Island adoption", "https://github.com/UBC-FRESH/ws4/blob/main/notes/reports/p54-adoption-northisland.md"], ["Structure index", "https://github.com/UBC-FRESH/ws4/pull/471"]],
       boundary: "DHI is a coarse productivity surrogate, not species habitat. Structure habitat requires exact ALS metrics."
     },
     carbon: {
@@ -58,9 +58,10 @@
       boundary: "Adopted by live carbon phases; this demo does not claim a new carbon model or a common-landscape GCBM comparison."
     },
     operations: {
-      title: "Salvage value decays with storage time",
-      status: "Open PR",
-      what: "FHOPS has a typed salvage.decay.v1 curve and a read-only shelf-life report. The first curve is a US Pacific Northwest mixed-conifer fire-killed reference, not a BC operational curve.",
+      title: "Salvage volume retention declines with storage time",
+      status: "Adopted",
+      evidenceState: "Open PR · fhops#383",
+      what: "An open FHOPS pull request proposes a typed salvage.decay.v1 curve and a read-only shelf-life report. The first curve is a US Pacific Northwest mixed-conifer fire-killed reference, not a BC operational curve.",
       flow: ['Fire-killed reference curve', 'salvage.decay.v1', 'FHOPS shelf-life report'],
       metrics: [["1.00", "year 0 retention"], ["0.58", "year 3 retention"], ["0.00", "year 5 retention"]],
       code: "fhops report salvage-shelf-life --scenario ... --storage ...",
@@ -104,9 +105,16 @@
     };
     status.className = "status " + (statusClasses[data.status] || "status-shortlisted");
     status.textContent = data.status;
+    head.appendChild(status);
+    if (data.evidenceState) {
+      var evidenceState = document.createElement("span");
+      evidenceState.className = "status status-shortlisted";
+      evidenceState.textContent = data.evidenceState;
+      head.appendChild(evidenceState);
+    }
     var title = document.createElement("h3");
     title.textContent = data.title;
-    head.append(status, title);
+    head.appendChild(title);
     var what = document.createElement("p");
     what.textContent = data.what;
     var flow = document.createElement("div");
@@ -137,7 +145,7 @@
       metrics.appendChild(item);
     });
     var evidenceTitle = document.createElement("h4");
-    evidenceTitle.textContent = "Merged evidence";
+    evidenceTitle.textContent = "Evidence";
     var list = document.createElement("ul");
     list.className = "lane-evidence";
     data.evidence.forEach(function (pair) {

@@ -86,9 +86,10 @@ Status: pr-open
 Goal: add an opt-in, same-origin assistant that answers from the public registry and evidence notes, while keeping the static default disabled.
 
 - [x] P2.1 Define the assistant request, response, and citation contract
-- [x] P2.2 Add a same-origin service with server-side credentials and an allowlist
-- [x] P2.3 Add retrieval over the registry and evidence notes
-- [x] P2.4 Add rate limits, a review path, and a disabled-by-default test
+- [x] P2.2 Add a same-origin service with server-side credentials and a read-only agent
+- [x] P2.3 Add retrieval over the registry and evidence notes when available
+- [x] P2.4 Add request size caps, clear errors, and a disabled-by-default test
+- [ ] P2.5 Add per-client rate limits and a human review path
 
 Acceptance criteria:
 

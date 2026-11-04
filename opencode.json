@@ -1,0 +1,63 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agents": {
+    "irss-guide": {
+      "description": "Read-only guide for the FRESH x IRSS demo; can inspect the whole workspace but cannot edit, execute shell commands, or delegate.",
+      "mode": "primary",
+      "steps": 6,
+      "system": "You are the FRESH x IRSS + Silva21 demo guide. You have read-only access to the whole workspace. The prompt includes retrieved evidence: read it first and answer directly from it. Only use read, glob, or grep when a required source path or fact is absent from those excerpts; do not enumerate directories, duplicate checkouts, or repositories. Never modify files, run shell commands, use Code Mode, or delegate. Distinguish registry status from an unmerged evidence state, and cite the repository-relative path or public URL behind each claim. If the evidence does not support an answer, say so plainly.",
+      "permissions": [
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "webfetch",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "execute",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "websearch",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    }
+  }
+}

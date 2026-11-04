@@ -6,6 +6,7 @@ import json
 import subprocess
 import threading
 from http.server import ThreadingHTTPServer
+from pathlib import Path
 from typing import Any
 from urllib.request import Request, urlopen
 
@@ -31,13 +32,8 @@ def test_evidence_search_returns_public_sources() -> None:
 
 def test_public_urls_point_at_maintained_surfaces() -> None:
     """Citations resolve to this demo's docs or the canonical source repositories."""
-    assert (
-        EvidenceIndex._public_url("docs/demo.rst")
-        == "https://ubc-fresh.github.io/fresh-irss-demo/docs/demo.html"
-    )
-    assert EvidenceIndex._public_url("docs/api/dashboard.rst").startswith(
-        "https://ubc-fresh.github.io/fresh-irss-demo/docs/api/"
-    )
+    assert EvidenceIndex._public_url("docs/demo.rst") == "/docs/demo.html"
+    assert EvidenceIndex._public_url("docs/api/dashboard.rst").startswith("/docs/api/")
     assert (
         EvidenceIndex._public_url("notes/adr/0001-static-assistant-disabled.md")
         == "https://github.com/UBC-FRESH/fresh-irss-demo/blob/main/notes/adr/0001-static-assistant-disabled.md"
@@ -61,7 +57,40 @@ def test_ask_uses_fake_opencode(monkeypatch: pytest.MonkeyPatch) -> None:
     result = ask("Which contract is complete?", {"page": "demo"})
     assert result["reply"] == "The climate contract is complete."
     assert result["citations"]
-    assert "climate" in " ".join(seen["command"]).lower()
+    command = " ".join(seen["command"]).lower()
+    assert "climate" in command
+    assert "--agent irss-guide" in command
+    assert "--auto" not in command
+
+
+def test_agent_config_is_read_only(tmp_path: Path) -> None:
+    """The app agent can inspect the workspace but cannot modify or execute it."""
+    config = json.loads((Path(__file__).resolve().parents[1] / "opencode.json").read_text())
+    permissions = config["agents"]["irss-guide"]["permissions"]
+    denied = {rule["action"] for rule in permissions if rule["effect"] == "deny"}
+    allowed = {rule["action"] for rule in permissions if rule["effect"] == "allow"}
+    assert {"edit", "shell", "subagent", "execute"} <= denied
+    assert {"read", "glob", "grep", "external_directory"} <= allowed
+    assert config["agents"]["irss-guide"]["mode"] == "primary"
+
+
+def test_evidence_search_prefers_specific_note(tmp_path: Path) -> None:
+    """A specific note beats a short README for an exact registry ID."""
+    demo = tmp_path / "demo"
+    (demo / "notes").mkdir(parents=True)
+    (demo / "notes" / "README.md").write_text("CARB-03 appears here once.\n")
+    expansion = tmp_path / "irss-expansion"
+    (expansion / "notes").mkdir(parents=True)
+    (expansion / "notes" / "19-carb03-salvage-decay.md").write_text(
+        "CARB-03 salvage decay retention curve.\n" * 4
+    )
+    registry = tmp_path / "candidates.yaml"
+    registry.write_text("candidates: []\n")
+    index = EvidenceIndex(root=demo, expansion_root=expansion, registry=registry)
+    rows = index.search("CARB-03 salvage decay")
+    assert rows
+    assert rows[0]["url"].endswith("notes/19-carb03-salvage-decay.md")
+    assert "irss-expansion/docs" not in rows[0]["url"]
 
 
 def test_ask_rejects_empty_message() -> None:

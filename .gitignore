@@ -37,3 +37,8 @@ Thumbs.db
 
 # Agent scratch
 .opencode/
+
+# Local assistant runtime
+assistant.log
+assistant.pid
+p2-pr.md

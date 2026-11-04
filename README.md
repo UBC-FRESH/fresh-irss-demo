@@ -69,8 +69,11 @@ python server/assistant.py --port 8765
 # open http://127.0.0.1:8765/
 ```
 
-The service uses the local `opencode` CLI and retrieval over `registry/` and
-`notes/`; it never puts a provider key in the browser. The static GitHub Pages
+The service uses the local `opencode` CLI with a read-only `irss-guide` agent.
+The agent can read every cloned repository under the workspace for context, but
+cannot edit files, run shell commands, use Code Mode, or launch subagents. It
+retrieves the sibling `irss-expansion` registry and notes when available. No
+provider key is put in the browser. The static GitHub Pages
 deployment stays disabled because it has no backend. See
 [`docs/assistant.rst`](docs/assistant.rst).
 
@@ -104,8 +107,10 @@ the disabled drawer, keyboard focus, and reduced-motion mode.
 
 | Path | Purpose |
 | --- | --- |
-| `web/` | Static demo: landing page, eight cards, map, climate table, assistant shell |
+| `web/` | Static demo: landing page, eight cards, explorer, evidence lab, map, assistant shell |
 | `web/data/` | Small public JSON/GeoJSON fixtures; no raw data |
+| `server/` | Opt-in same-origin assistant service and local docs route |
+| `opencode.json` | Read-only `irss-guide` agent with full workspace read access |
 | `docs/` | Sphinx documentation and the assistant contract |
 | `notes/` | ADRs, reference notes, and phase close-out reports |
 | `tests/` | Site contract tests and the workflow self-check |

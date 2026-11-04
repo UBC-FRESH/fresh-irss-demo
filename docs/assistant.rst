@@ -40,12 +40,16 @@ The optional service is started with::
     python server/assistant.py --port 8765
 
 It serves the static demo and injects a same-origin `/config.js`. It retrieves
-the top evidence notes from `registry/candidates.yaml` and `notes/`, invokes the
-local `opencode` CLI server-side, and returns `reply` plus `citations`. Set
-`FRESH_ASSISTANT_MODEL` to choose the provider model and
-`FRESH_ASSISTANT_TIMEOUT` to cap a turn. The service is rate-limited per client
-and rejects oversized requests. The public GitHub Pages site remains disabled
-because it has no server-side runtime.
+the top evidence from the sibling `irss-expansion` registry and notes when that
+checkout is available, plus this demo's docs and lane data. It invokes the local
+`opencode` CLI with the read-only `irss-guide` agent server-side, and returns
+`reply` plus `citations`. The agent may read every cloned repository under the
+workspace for context; its configuration denies edit, shell, Code Mode, web, and
+subagent actions. Set `FRESH_ASSISTANT_MODEL` to choose the provider
+model, `FRESH_ASSISTANT_TIMEOUT` to cap a turn, and
+`FRESH_ASSISTANT_EXPANSION` or `FRESH_ASSISTANT_REGISTRY` if the evidence
+checkout lives elsewhere. The service rejects oversized requests. The public
+GitHub Pages site remains disabled because it has no server-side runtime.
 
 Request and response
 --------------------
@@ -79,10 +83,11 @@ are limited to http(s), mailto, same-origin paths, and fragments. Citations are
 rendered as a separate list below the answer, so a citation is never mistaken
 for part of the model prose.
 
-Citation URLs are mapped to maintained public surfaces: ``docs/`` pages go to
-this demo's published Sphinx site, ``notes/`` files go to this repository, and
-``registry/`` files go to the canonical ``irss-expansion`` registry. The
-assistant does not cite the retired ``irss-expansion`` GitHub Pages site.
+Citation URLs are mapped to maintained sources: ``docs/`` pages are served from
+the local Sphinx build at ``/docs/``, demo notes and web evidence point at this
+repository, and expansion notes and registry paths point at
+``irss-expansion``. The assistant does not cite the retired ``irss-expansion``
+GitHub Pages site.
 
 Safety requirements for a live backend
 --------------------------------------
@@ -91,10 +96,11 @@ Safety requirements for a live backend
 2. Same-origin: no absolute endpoint, no third-party origin from the client.
 3. Server-side credentials: no key in HTML, JavaScript, or ``config.js``.
 4. Allowlist: the service accepts only the demo's own routes and methods.
-5. Rate limits and request size caps.
-6. Retrieval over the registry and evidence notes, with a citation on every
-   answer.
-7. A review path for wrong or unsupported answers.
+5. Request size caps; per-client rate limiting is not enabled in this trusted
+   deployment.
+6. Retrieval over the expansion registry and evidence notes when available,
+   with citations on every answer.
+7. A human review path for wrong or unsupported answers remains future work.
 8. A clear disabled/error state when the backend is unavailable; no silent
    fallback to another provider.
 

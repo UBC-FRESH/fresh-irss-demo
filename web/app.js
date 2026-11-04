@@ -358,10 +358,20 @@
 
   function initAssistant() {
     var config = window.FRESH_IRSS_DEMO || {};
-    var endpoint =
-      typeof config.assistantEndpoint === "string" && config.assistantEndpoint.indexOf("/") === 0
-        ? config.assistantEndpoint
-        : null;
+    var endpoint = null;
+    if (typeof config.assistantEndpoint === "string") {
+      try {
+        var resolved = new URL(config.assistantEndpoint, window.location.origin);
+        if (
+          resolved.origin === window.location.origin &&
+          (resolved.protocol === "http:" || resolved.protocol === "https:")
+        ) {
+          endpoint = resolved.pathname + resolved.search;
+        }
+      } catch (error) {
+        endpoint = null;
+      }
+    }
     var panel = document.getElementById("assistant-panel");
     if (!panel) {
       return;
