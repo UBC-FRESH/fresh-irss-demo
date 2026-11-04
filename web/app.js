@@ -669,11 +669,13 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       initMap();
+      if (window.initLaneExplorer) { window.initLaneExplorer(); }
       initAssistant();
       initNavSpy();
     });
   } else {
     initMap();
+    if (window.initLaneExplorer) { window.initLaneExplorer(); }
     initAssistant();
     initNavSpy();
   }

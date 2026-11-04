@@ -44,3 +44,8 @@ status and the GitHub issue comments.
 ## 2026-11-04
 
 - P2: added the opt-in same-origin assistant service in `server/assistant.py`, retrieval over the registry and notes, local OpenCode provider calls, citations, request limits, and tests. The static Pages build remains disabled; the local service injects `/api/assistant`.
+
+## 2026-11-04
+
+- P2: added an interactive eight-lane integration explorer that shows status,
+  concrete metrics, merged evidence links, runnable surfaces, and boundaries.

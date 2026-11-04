@@ -35,6 +35,7 @@
       <nav class="site-nav" aria-label="Primary">
         <a href="#why">Why</a>
         <a href="#integrations">Integrations</a>
+        <a href="#explore">Explore</a>
         <a href="#case-study">Case study</a>
         <a href="#assistant">Assistant</a>
         <a href="#provenance">Provenance</a>
@@ -544,6 +545,30 @@
         </div>
       </section>
 
+      <section id="explore" class="section wrap" aria-labelledby="explore-title">
+        <div class="section-head">
+          <p class="eyebrow">Interactive explorer</p>
+          <h2 id="explore-title">Pick a lane. See the actual integration.</h2>
+          <p class="section-lede">
+            Status, merged evidence, runnable surface, and the boundary that keeps the claim honest.
+            The numbers are the public registry and target-repository results, not demo estimates.
+          </p>
+        </div>
+        <div class="lane-explorer">
+          <div class="lane-list" role="tablist" aria-label="Integration lanes">
+            <button type="button" role="tab" aria-selected="true" data-lane="inventory">Inventory &amp; LiDAR</button>
+            <button type="button" role="tab" aria-selected="false" data-lane="climate">Climate</button>
+            <button type="button" role="tab" aria-selected="false" data-lane="disturbance">Disturbance</button>
+            <button type="button" role="tab" aria-selected="false" data-lane="habitat">Habitat</button>
+            <button type="button" role="tab" aria-selected="false" data-lane="carbon">Carbon</button>
+            <button type="button" role="tab" aria-selected="false" data-lane="operations">Operations</button>
+            <button type="button" role="tab" aria-selected="false" data-lane="provenance">Provenance</button>
+            <button type="button" role="tab" aria-selected="false" data-lane="storyboard">Storyboard</button>
+          </div>
+          <article id="lane-detail" class="lane-detail" aria-live="polite"></article>
+        </div>
+      </section>
+
       <section id="case-study" class="section wrap" aria-labelledby="case-title">
         <div class="section-head">
           <p class="eyebrow">Public fixture</p>
@@ -914,6 +939,7 @@
 
     <script src="config.js?v=20261103-p1" defer></script>
     <script src="data/case-study.js?v=20261104-p2"></script>
+    <script src="lanes.js?v=20261104-p2"></script>
     <script src="app.js?v=20261104-p2" defer></script>
   </body>
 </html>

@@ -1985,3 +1985,18 @@ code {
     box-shadow: none;
   }
 }
+
+.lane-explorer { display:grid; grid-template-columns:minmax(190px,260px) minmax(0,1fr); gap:1rem; }
+.lane-list { display:flex; flex-direction:column; gap:.4rem; }
+.lane-list button { text-align:left; padding:.7rem .8rem; border:1px solid var(--line,#d7d2c4); border-radius:.5rem; background:#fff; color:inherit; cursor:pointer; font:inherit; }
+.lane-list button[aria-selected="true"] { background:#173b2b; color:#fff; border-color:#173b2b; }
+.lane-detail { border:1px solid var(--line,#d7d2c4); border-radius:.75rem; padding:1rem; background:#fff; }
+.lane-detail-head { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; }
+.lane-detail-head h3 { margin:0; }
+.lane-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:.5rem; margin:1rem 0; }
+.lane-metric { padding:.65rem; border-radius:.5rem; background:#f4f1e8; }
+.lane-metric strong { display:block; font-size:1.15rem; }
+.lane-metric span { font-size:.8rem; opacity:.8; }
+.lane-detail pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#11231b; color:#eaf3ec; padding:.75rem; border-radius:.5rem; }
+.lane-boundary { border-left:3px solid #b7791f; padding-left:.7rem; }
+@media (max-width:700px) { .lane-explorer { grid-template-columns:1fr; } .lane-list { flex-direction:row; overflow:auto; } .lane-list button { white-space:nowrap; } }
