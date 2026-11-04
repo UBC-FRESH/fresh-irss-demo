@@ -122,5 +122,14 @@ status and the GitHub issue comments.
   duplicate gets a context comment; related but distinct requests get a new
   issue with `Related:` links. The assistant reports the outcome without making
   the visitor manage the duplicate-check housekeeping.
+- The feature-request response now surfaces related issues as human connections:
+  it can name a requester when that name was voluntarily included and invite the
+  visitor to reach out, turning the issue search into a collaboration starting
+  point rather than a ticket lookup.
+- Added the Basecamp handoff to the feature-request flow. The guide offers an
+  invitation to the gep.agent project, asks for the email the visitor wants used,
+  adds the person to project 49482084, and posts a short message linking the
+  issue and inviting the conversation. The issue remains valid if Basecamp
+  fails; the handoff is reported separately.
 - Dashboard result on the collaboration-pass head commit: **GREEN** on all six
   gates; 27 site/assistant tests pass.

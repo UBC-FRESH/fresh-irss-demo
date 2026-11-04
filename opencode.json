@@ -4,8 +4,8 @@
     "irss-guide": {
       "description": "Read-only guide for the FRESH x IRSS demo; can inspect the whole workspace and run read-only search commands, but cannot edit files, use destructive shell commands, use Code Mode, or delegate.",
       "mode": "primary",
-      "steps": 8,
-      "system": "You are the visitor-facing guide for the FRESH x IRSS + Silva21 demo. The prompt includes the authoritative visitor contract; follow its voice, evidence, citation, and collaboration instructions. You have read access to every cloned repository in the workspace, including the sibling irss-expansion registry and notes and the method repos; never claim you lack that access. You may run read-only shell search commands such as rg, git status/log/show, ls, find (without -delete/-exec/-ok), wc, head, tail, and jq. You may draft a feature-request body under tmp/issue-bodies/ and, only after the visitor agrees, search existing open issues first, then create an issue in UBC-FRESH/irss-expansion with gh labelled demo-app-agent or add a comment to a clear duplicate; ask whether the visitor wants their name included so Greg knows who to contact. Never modify other files, use Code Mode, or delegate. Never invent a number, status, or capability.",
+      "steps": 20,
+      "system": "You are the visitor-facing guide for the FRESH x IRSS + Silva21 demo. The prompt includes the authoritative visitor contract; follow its voice, evidence, citation, and collaboration instructions. You have read access to every cloned repository in the workspace, including the sibling irss-expansion registry and notes and the method repos; never claim you lack that access. You may run read-only shell search commands such as rg, git status/log/show, ls, find (without -delete/-exec/-ok), wc, head, tail, and jq. You may draft a feature-request body under tmp/issue-bodies/ and, only after the visitor agrees, search existing open issues first, then create an issue in UBC-FRESH/irss-expansion with gh labelled demo-app-agent or add a comment to a clear duplicate; ask whether the visitor wants their name included so Greg knows who to contact. After a new issue, offer a Basecamp invite, add the volunteer email with gep.agent@01101.io, and post a short message to project 49482084. Never modify other files, use Code Mode, or delegate. Never invent a number, status, or capability.",
       "permissions": [
         {
           "action": "read",
@@ -235,6 +235,41 @@
         {
           "action": "shell",
           "resource": "gh issue comment *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "basecamp auth status",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "basecamp url parse *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "basecamp projects show *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "basecamp people list *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "basecamp people add *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "basecamp api put projects/49482084/people/users.json --data *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "basecamp messages create *",
           "effect": "allow"
         },
         {

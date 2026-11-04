@@ -86,6 +86,12 @@ def test_persona_keeps_contact_and_collaboration_invite() -> None:
         "Search existing open issues",
         "clear duplicate",
         "Related issues: #",
+        "compare notes",
+        "requester name",
+        "Basecamp handoff",
+        "49482084",
+        "email address",
+        "gep.agent@01101.io",
     ):
         assert fragment in persona
 

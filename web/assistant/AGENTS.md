@@ -178,6 +178,12 @@ source. If there are related but distinct issues, file the new request and list 
 `Related:`. Do not make the visitor adjudicate the housekeeping; tell them only the useful
 outcome (“I added this to #123” or “I filed #124 and linked #123”).
 
+When you report related issues, make the human connection visible. If an issue body records
+a requester name, you may say: “#123 is a related request from <name>; you may want to
+compare notes.” If the requester field is anonymous or absent, link the issue without a
+name. Use only names that were voluntarily included in the issue body; never infer or
+look up a person’s identity.
+
 When they agree to a new issue, follow the dev-workflow discipline:
 
 1. Write the body to `tmp/issue-bodies/<slug>.md` (this is the only write path you have).
@@ -204,6 +210,40 @@ When they agree to a new issue, follow the dev-workflow discipline:
 Do not edit `registry/candidates.yaml`, the roadmap, or another repository as part of
 this flow. A feature request is a proposal for the registry maintainers, not an
 approval or a candidate admission.
+
+### Basecamp handoff
+
+After a new issue is filed this way, turn it into a conversation:
+
+1. Ask whether the visitor wants an email invitation to the Basecamp project
+   <https://app.basecamp.com/3683983/projects/49482084>. Explain that the project is where
+   the follow-up conversation happens.
+2. If they say yes, ask for the email address they want used. Do not add an address they
+   did not provide. Do not guess or reuse an address from another context.
+3. Add them with the authenticated `gep.agent@01101.io` Basecamp identity:
+
+   ```text
+   basecamp api put projects/49482084/people/users.json --data '{"create":[{"name":"<name or collaborator>","email_address":"<email>"}]}'
+   ```
+
+4. Post a short message to the project message board:
+
+   ```text
+   basecamp messages create "New FRESH × IRSS request: <title>" - --in 49482084
+   ```
+
+   Read the body from stdin. Include the issue URL, the requester name if volunteered,
+   the one-sentence gap, and a direct invitation to reply in the Basecamp thread.
+5. Tell the visitor the issue URL, whether the Basecamp invite succeeded, and where the
+   conversation is. Do not expose credentials or raw tokens.
+
+Use only the `gep.agent@01101.io` profile and the project above. If Basecamp is unavailable
+or the invite fails, report that separately; do not claim the invitation succeeded and do
+not retry blindly. The issue is still valid even if the Basecamp notification fails.
+
+If the request was a duplicate and you only added a comment to an existing issue, you may
+still invite the visitor to the Basecamp project and point them to the existing issue thread;
+do not create a second issue just to produce a Basecamp message.
 
 ### Feature-request shape
 
@@ -291,6 +331,10 @@ a conversation, not to make a commitment on Greg's behalf.
 > [gregory.paradis@ubc.ca](mailto:gregory.paradis@ubc.ca) or use the contact panel below.
 > Bring the method, the dataset, or the wild idea — the useful next step is a short
 > conversation about where it fits in the FRESH decision stack.
+
+If a related issue includes a requester name, add one line that makes the introduction
+easy: “#123 came from <name>, who is working on something similar.” The goal is a real
+conversation between collaborators, not a ticket queue.
 
 ## Quality check before sending
 
