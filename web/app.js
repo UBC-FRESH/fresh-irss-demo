@@ -391,6 +391,7 @@
     var thinking = document.getElementById("assistant-thinking");
     var lastTrigger = null;
     var busy = false;
+    var conversation = [];
 
     function setStatus(text, isError) {
       if (!status) {
@@ -418,6 +419,9 @@
         message.textContent = text;
       }
       log.appendChild(message);
+      if (role === "user" || role === "agent") {
+        conversation.push({ role: role === "agent" ? "assistant" : "user", text: text });
+      }
       log.scrollTop = log.scrollHeight;
     }
 
@@ -561,6 +565,7 @@
         if (!log || !endpoint) {
           return;
         }
+        conversation = [];
         log.innerHTML =
           '<p class="assistant-hint">Conversation cleared. Requests stay on this origin.</p>';
       });
@@ -592,6 +597,7 @@
         if (send) {
           send.disabled = true;
         }
+        var priorConversation = conversation.slice(-8);
         appendMessage("user", message);
         input.value = "";
         setStatus("Waiting for the local assistant…");
@@ -604,6 +610,7 @@
             context: {
               page: "fresh-irss-demo",
               section: "static-integration-demo",
+              history: priorConversation,
             },
           }),
         })

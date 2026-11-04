@@ -135,6 +135,30 @@ def test_evidence_search_prefers_specific_note(tmp_path: Path) -> None:
     assert "irss-expansion/docs" not in rows[0]["url"]
 
 
+def test_ask_includes_conversation_history(monkeypatch: pytest.MonkeyPatch) -> None:
+    """A follow-up turn can use the name and context volunteered earlier."""
+    seen: dict[str, Any] = {}
+
+    def fake_run(*args: object, **kwargs: object) -> _Completed:
+        seen["command"] = args[0]
+        return _Completed('{"type":"text","text":"Noted."}\n')
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    ask(
+        "Use that name and email.",
+        {
+            "history": [
+                {"role": "user", "text": "My name is Bogus User."},
+                {"role": "assistant", "text": "What email should I use?"},
+            ]
+        },
+    )
+    prompt = " ".join(seen["command"])
+    assert "Conversation so far:" in prompt
+    assert "My name is Bogus User." in prompt
+    assert "What email should I use?" in prompt
+
+
 def test_ask_rejects_empty_message() -> None:
     """An empty prompt is rejected before any provider call."""
     with pytest.raises(ValueError, match="message"):

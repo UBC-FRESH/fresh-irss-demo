@@ -293,6 +293,7 @@ def test_assistant_has_a_thinking_indicator() -> None:
     assert "Thinking through the evidence" in text
     assert "setThinking(true)" in script
     assert "setThinking(false)" in script
+    assert "history: priorConversation" in script
 
 
 def test_assistant_is_disabled_by_default() -> None:
