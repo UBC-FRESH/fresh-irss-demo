@@ -670,12 +670,14 @@
     document.addEventListener("DOMContentLoaded", function () {
       initMap();
       if (window.initLaneExplorer) { window.initLaneExplorer(); }
+      if (window.initEvidenceLab) { window.initEvidenceLab(); }
       initAssistant();
       initNavSpy();
     });
   } else {
     initMap();
     if (window.initLaneExplorer) { window.initLaneExplorer(); }
+    if (window.initEvidenceLab) { window.initEvidenceLab(); }
     initAssistant();
     initNavSpy();
   }

@@ -6,10 +6,15 @@
 A public, static demonstration of how the IRSS and Silva21 environmental
 intelligence record maps into the FRESH forest decision stack. It is a
 communication artifact: eight integration lanes, a small public case-study
-fixture, an explicit provenance panel, and an assistant drawer shell that is
-disabled by default.
+fixture, an interactive integration explorer, an evidence lab over recorded
+validation results, an explicit provenance panel, and an assistant drawer that
+is disabled by default on the public static build.
 
 **Live demo:** <https://ubc-fresh.github.io/fresh-irss-demo/>
+
+The demo includes an eight-lane explorer, a selector over recorded validation
+evidence, and links to the maintained FRESH live UIs (behind Cloudflare Access)
+and their public documentation.
 
 ## What this shows
 
@@ -111,9 +116,9 @@ the disabled drawer, keyboard focus, and reduced-motion mode.
 ## Status
 
 P0 (public demo slice) and P1 (verification and publication) are complete. P2
-(live assistant backend), P3 (interactive map and layer service), and P4
-(registry-driven build and review) are planned. See [`ROADMAP.md`](ROADMAP.md)
-and the GitHub issues.
+(live assistant backend and public-surface depth) is `pr-open`. P3 (interactive
+map and layer service) and P4 (registry-driven build and review) are planned.
+See [`ROADMAP.md`](ROADMAP.md) and the GitHub issues.
 
 ## Boundaries
 
@@ -121,7 +126,8 @@ and the GitHub issues.
 - Not a validation report. Merged contracts are not validated models.
 - No live data feed, no near-real-time alert, no species-specific habitat model.
 - No claim that the static overlays are current forest condition.
-- The assistant is a shell, not a live LLM integration.
+- The GitHub Pages build has no assistant backend. The opt-in local service
+  uses a server-side provider and retrieval; it is not an operational advisor.
 
 ## License and attribution
 

@@ -32,6 +32,7 @@ REMOTE_HOSTS = {
     "hero.epa.gov",
     "task43.ieabioenergy.com",
     "ubc-fresh.github.io",
+    "01101.dev",
 }
 
 
@@ -139,7 +140,9 @@ def test_ids_are_unique_and_links_resolve() -> None:
             assert not link.startswith("http://"), link
             if link.startswith("https://"):
                 host = urlsplit(link).hostname or ""
-                assert host in REMOTE_HOSTS, f"unexpected remote host: {host}"
+                assert host in REMOTE_HOSTS or host.endswith(".01101.dev"), (
+                    f"unexpected remote host: {host}"
+                )
             continue
         path = urlsplit(link).path
         assert (WEB / path).exists(), f"missing local link target: {path}"

@@ -37,6 +37,7 @@
         <a href="#integrations">Integrations</a>
         <a href="#explore">Explore</a>
         <a href="#case-study">Case study</a>
+        <a href="#surfaces">FRESH demos</a>
         <a href="#assistant">Assistant</a>
         <a href="#provenance">Provenance</a>
       </nav>
@@ -569,6 +570,108 @@
         </div>
       </section>
 
+      <section id="evidence-lab" class="section section-tinted" aria-labelledby="lab-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Evidence lab</p>
+            <h2 id="lab-title">Change the question. See the evidence.</h2>
+            <p class="section-lede">
+              The numbers below come from the public validation and target-repository reports.
+              This is a selector over recorded evidence, not a live model run.
+            </p>
+          </div>
+          <div class="lab-tabs" role="tablist" aria-label="Evidence questions">
+            <button type="button" role="tab" aria-selected="true" data-lab="models">Which model?</button>
+            <button type="button" role="tab" aria-selected="false" data-lab="lag">How old is the ground plot?</button>
+            <button type="button" role="tab" aria-selected="false" data-lab="salvage">How fast does salvage value decay?</button>
+            <button type="button" role="tab" aria-selected="false" data-lab="coverage">What is actually covered?</button>
+          </div>
+          <div class="lab-body">
+            <div id="lab-chart" class="lab-chart" aria-live="polite"></div>
+            <div id="lab-note" class="lab-note"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="surfaces" class="section wrap" aria-labelledby="surfaces-title">
+        <div class="section-head">
+          <p class="eyebrow">The wider FRESH surface</p>
+          <h2 id="surfaces-title">The demos this integration touches</h2>
+          <p class="section-lede">
+            This site is the seam. These are the maintained public FRESH interfaces and
+            documentation surfaces on either side of it. Open one to see the underlying
+            workflow rather than a screenshot of it.
+          </p>
+        </div>
+        <div class="surface-grid">
+          <article class="surface-card">
+            <span class="surface-kicker">WS4 · estate model</span>
+            <span class="surface-access">Live UI · Cloudflare Access</span>
+            <h3>Wood Supply Simulation System</h3>
+            <p>Space-first forest estate simulation: fragments, roads, treatments, and provenance-aware scenario reports.</p>
+            <div class="surface-actions">
+              <a class="surface-link" href="https://ws4.01101.dev" target="_blank" rel="noopener noreferrer">Open live UI <span aria-hidden="true">↗</span></a>
+              <a class="surface-doc" href="https://ubc-fresh.github.io/ws4/" target="_blank" rel="noopener noreferrer">Docs <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="surface-card">
+            <span class="surface-kicker">FHOPS · operations</span>
+            <span class="surface-access">Live UI · Cloudflare Access</span>
+            <h3>Harvesting Operations Planning</h3>
+            <p>Shift, machine, routing, and salvage workflows, including the shelf-life report used in the operations lane.</p>
+            <div class="surface-actions">
+              <a class="surface-link" href="https://fhops.01101.dev" target="_blank" rel="noopener noreferrer">Open live UI <span aria-hidden="true">↗</span></a>
+              <a class="surface-doc" href="https://ubc-fresh.github.io/fhops/" target="_blank" rel="noopener noreferrer">Docs <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="surface-card">
+            <span class="surface-kicker">FVS-BC · growth</span>
+            <span class="surface-access">Live UI · Cloudflare Access</span>
+            <h3>BC Forest Vegetation Simulator</h3>
+            <p>Python wrapper for the BC variant of FVS: BC keywords, species and BEC handling, and tidy simulation I/O.</p>
+            <div class="surface-actions">
+              <a class="surface-link" href="https://fresh-fvsbc.01101.dev" target="_blank" rel="noopener noreferrer">Open live UI <span aria-hidden="true">↗</span></a>
+              <a class="surface-doc" href="https://ubc-fresh.github.io/fresh-fvsbc/" target="_blank" rel="noopener noreferrer">Docs <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="surface-card">
+            <span class="surface-kicker">HectaresBC · spatial data</span>
+            <span class="surface-access">Live UI · Cloudflare Access</span>
+            <h3>Public Spatial Data Workspace</h3>
+            <p>Catalogue, map, raster-tile, and clipped-bundle workspace for public BC layers and reproducible data access.</p>
+            <div class="surface-actions">
+              <a class="surface-link" href="https://fresh-hectaresbc.01101.dev" target="_blank" rel="noopener noreferrer">Open live UI <span aria-hidden="true">↗</span></a>
+              <a class="surface-doc" href="https://ubc-fresh.github.io/fresh-hectaresbc/" target="_blank" rel="noopener noreferrer">Docs <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="surface-card">
+            <span class="surface-kicker">Urban Forest Lab · 2D/3D</span>
+            <span class="surface-access">Live UI · Cloudflare Access</span>
+            <h3>Urban LiDAR and Scenario Studio</h3>
+            <p>Urban tree inventory, growth, observed change, 2D maps, 3D scenes, and a scenario studio for the UBC pilot.</p>
+            <div class="surface-actions">
+              <a class="surface-link" href="https://fresh-urban-forest-lab.01101.dev" target="_blank" rel="noopener noreferrer">Open live UI <span aria-hidden="true">↗</span></a>
+              <a class="surface-doc" href="https://ubc-fresh.github.io/fresh-urban-forest-lab/" target="_blank" rel="noopener noreferrer">Docs <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="surface-card">
+            <span class="surface-kicker">IRSS × Silva21 · register</span>
+            <span class="surface-access">Public GitHub Pages</span>
+            <h3>The Integration Register</h3>
+            <p>The candidates, evidence status, review notes, and boundaries behind every lane on this page.</p>
+            <div class="surface-actions">
+              <a class="surface-link" href="https://ubc-fresh.github.io/irss-expansion/" target="_blank" rel="noopener noreferrer">Open the register <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        </div>
+        <p class="surface-note">
+          Live UIs sit behind Cloudflare Access; the documentation links are public.
+          External sites are maintained by their own repositories. Tags and status here are a
+          snapshot of the integration register, not a claim that every upstream surface is
+          production-ready.
+        </p>
+      </section>
+
       <section id="case-study" class="section wrap" aria-labelledby="case-title">
         <div class="section-head">
           <p class="eyebrow">Public fixture</p>
@@ -940,6 +1043,7 @@
     <script src="config.js?v=20261103-p1" defer></script>
     <script src="data/case-study.js?v=20261104-p2"></script>
     <script src="lanes.js?v=20261104-p2"></script>
+    <script src="lab.js?v=20261104-p2"></script>
     <script src="app.js?v=20261104-p2" defer></script>
   </body>
 </html>

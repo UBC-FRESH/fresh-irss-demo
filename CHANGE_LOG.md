@@ -47,5 +47,19 @@ status and the GitHub issue comments.
 
 ## 2026-11-04
 
-- P2: added an interactive eight-lane integration explorer that shows status,
-  concrete metrics, merged evidence links, runnable surfaces, and boundaries.
+- P2 public-surface depth pass: added an interactive eight-lane integration
+  explorer that shows status, concrete metrics, merged evidence links, runnable
+  surfaces, and boundaries.
+- Added an evidence lab over recorded results: published/hybrid/refit inventory
+  errors, ground-to-LiDAR lag sensitivity, salvage retention, and default-versus-
+  hybrid coverage. Each view renders its values as a table and links the source
+  report; the lab selects over evidence and does not run a model.
+- Linked the maintained FRESH live UIs behind Cloudflare Access (WS4, FHOPS,
+  FVS-BC, HectaresBC, and the Urban Forest Lab) and their public docs, plus the
+  public integration register.
+- Corrected the refit comparison to the in-domain BA 8.10 / volume 52.06 values
+  and replaced the unsourced joint-coverage figure with the recorded BA/volume
+  cell counts and 1,839 to 2,913 km² joint-area result.
+- Dashboard result on the depth-pass head commit: **GREEN**. Lint, format,
+  `mypy --strict`, tests with coverage, workflow validator, and Sphinx with
+  warnings as errors all passed.
