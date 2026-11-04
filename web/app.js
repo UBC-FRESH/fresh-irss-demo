@@ -288,11 +288,22 @@
       );
     }
 
-    fetch("data/case-study.geojson", { credentials: "omit" })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("HTTP " + response.status);
+    function loadFixture() {
+      return fetch("data/case-study.geojson", { credentials: "omit" }).then(function (response) {
+        if (response.ok) {
+          return response;
         }
+        return fetch("/data/case-study.geojson", { credentials: "omit" }).then(function (absolute) {
+          if (!absolute.ok) {
+            throw new Error("HTTP " + absolute.status);
+          }
+          return absolute;
+        });
+      });
+    }
+
+    loadFixture()
+      .then(function (response) {
         return response.json();
       })
       .then(render)
