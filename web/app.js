@@ -308,6 +308,10 @@
       })
       .then(render)
       .catch(function (error) {
+        if (window.FRESH_IRSS_CASE_STUDY) {
+          render(window.FRESH_IRSS_CASE_STUDY);
+          return;
+        }
         setStatus(
           "Map fixture unavailable (" + error.message + "). The fixture table below is still valid.",
           true
