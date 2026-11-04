@@ -288,15 +288,30 @@
       );
     }
 
-    fetch("data/case-study.geojson", { credentials: "omit" })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("HTTP " + response.status);
+    function loadFixture() {
+      return fetch("data/case-study.geojson", { credentials: "omit" }).then(function (response) {
+        if (response.ok) {
+          return response;
         }
+        return fetch("/data/case-study.geojson", { credentials: "omit" }).then(function (absolute) {
+          if (!absolute.ok) {
+            throw new Error("HTTP " + absolute.status);
+          }
+          return absolute;
+        });
+      });
+    }
+
+    loadFixture()
+      .then(function (response) {
         return response.json();
       })
       .then(render)
       .catch(function (error) {
+        if (window.FRESH_IRSS_CASE_STUDY) {
+          render(window.FRESH_IRSS_CASE_STUDY);
+          return;
+        }
         setStatus(
           "Map fixture unavailable (" + error.message + "). The fixture table below is still valid.",
           true
@@ -343,10 +358,20 @@
 
   function initAssistant() {
     var config = window.FRESH_IRSS_DEMO || {};
-    var endpoint =
-      typeof config.assistantEndpoint === "string" && config.assistantEndpoint.indexOf("/") === 0
-        ? config.assistantEndpoint
-        : null;
+    var endpoint = null;
+    if (typeof config.assistantEndpoint === "string") {
+      try {
+        var resolved = new URL(config.assistantEndpoint, window.location.origin);
+        if (
+          resolved.origin === window.location.origin &&
+          (resolved.protocol === "http:" || resolved.protocol === "https:")
+        ) {
+          endpoint = resolved.pathname + resolved.search;
+        }
+      } catch (error) {
+        endpoint = null;
+      }
+    }
     var panel = document.getElementById("assistant-panel");
     if (!panel) {
       return;
@@ -378,11 +403,39 @@
       if (!log) {
         return;
       }
-      var paragraph = document.createElement("p");
-      paragraph.className = "assistant-msg " + role;
-      paragraph.textContent = text;
-      log.appendChild(paragraph);
+      var message = document.createElement(role === "agent" ? "div" : "p");
+      message.className = "assistant-msg " + role;
+      if (role === "agent" && typeof window.renderAssistantMarkdown === "function") {
+        message.innerHTML = window.renderAssistantMarkdown(text);
+      } else {
+        message.textContent = text;
+      }
+      log.appendChild(message);
       log.scrollTop = log.scrollHeight;
+    }
+
+    function appendCitations(citations) {
+      if (!log || !Array.isArray(citations) || !citations.length) {
+        return;
+      }
+      var list = document.createElement("ul");
+      list.className = "assistant-citations";
+      citations.forEach(function (citation) {
+        if (!citation || typeof citation.url !== "string" || !citation.url) {
+          return;
+        }
+        var item = document.createElement("li");
+        var link = document.createElement("a");
+        link.href = citation.url;
+        link.textContent = typeof citation.label === "string" ? citation.label : citation.url;
+        link.rel = "noopener noreferrer";
+        item.appendChild(link);
+        list.appendChild(item);
+      });
+      if (list.children.length) {
+        log.appendChild(list);
+        log.scrollTop = log.scrollHeight;
+      }
     }
 
     function enable() {
@@ -506,6 +559,17 @@
       });
     }
 
+    if (input) {
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+          event.preventDefault();
+          if (form) {
+            form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit"));
+          }
+        }
+      });
+    }
+
     if (form) {
       form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -549,6 +613,7 @@
                   ? payload.message
                   : "The assistant returned no text.";
             appendMessage("agent", reply);
+            appendCitations(payload.citations);
             setStatus("Answered by the local assistant · verify cited evidence before use");
           })
           .catch(function (error) {
@@ -618,11 +683,15 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       initMap();
+      if (window.initLaneExplorer) { window.initLaneExplorer(); }
+      if (window.initEvidenceLab) { window.initEvidenceLab(); }
       initAssistant();
       initNavSpy();
     });
   } else {
     initMap();
+    if (window.initLaneExplorer) { window.initLaneExplorer(); }
+    if (window.initEvidenceLab) { window.initEvidenceLab(); }
     initAssistant();
     initNavSpy();
   }

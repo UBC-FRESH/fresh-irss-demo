@@ -40,3 +40,71 @@ status and the GitHub issue comments.
 - Opened parent issues #1 (P0), #2 (P1), #3 (P2), #4 (P3), and #5 (P4).
   P0/P1 child issues #6-#15 are closed with their evidence. The live-work
   backlog is tracked in #3-#5.
+
+## 2026-11-04
+
+- P2: added the opt-in same-origin assistant service in `server/assistant.py`, retrieval over the available expansion registry and notes, local OpenCode provider calls, citations, request size caps, and tests. The static Pages build remains disabled; the local service injects `/api/assistant`.
+
+## 2026-11-04
+
+- P2 public-surface depth pass: added an interactive eight-lane integration
+  explorer that shows status, concrete metrics, merged evidence links, runnable
+  surfaces, and boundaries.
+- Added an evidence lab over recorded results: published/hybrid/refit inventory
+  errors, ground-to-LiDAR lag sensitivity, salvage retention, and default-versus-
+  hybrid coverage. Each view renders its values as a table and links the source
+  report; the lab selects over evidence and does not run a model.
+- Linked the maintained FRESH live UIs behind Cloudflare Access (WS4, FHOPS,
+  FVS-BC, HectaresBC, and the Urban Forest Lab) and their public docs, plus the
+  public integration register.
+- Corrected the refit comparison to the in-domain BA 8.10 / volume 52.06 values
+  and replaced the unsourced joint-coverage figure with the recorded BA/volume
+  cell counts and 1,839 to 2,913 km² joint-area result.
+- Added a per-lane input → contract → consumer flow and corrected the lane status
+  badge so the operations lane shows its open-PR state instead of complete.
+- Removed the duplicate register card from the FRESH demos section. The register
+  is the source of truth in `candidates.yaml`, not a separate hosted demo.
+- Rendered assistant replies as a safe Markdown subset in the chat drawer.
+  Added the dependency-free renderer, XSS/URL-allowlist contract checks under
+  Node, and chat-bubble styles for headings, lists, code, links, quotes, rules,
+  and tables. Raw HTML remains escaped text.
+- Fixed assistant citations. ``docs/`` sources now point at this demo's
+  published Sphinx pages, notes point at the public demo repository, and registry
+  paths point at ``irss-expansion``. Removed the retired ``irss-expansion``
+  GitHub Pages prefix and added URL-mapping contract tests.
+- Constrained the app agent to read-only workspace access. The `irss-guide`
+  agent can read every cloned repo and run read-only search commands, but cannot
+  edit files, run destructive shell commands, use Code Mode, use the web, or
+  launch subagents. Removed `--auto` from the provider invocation.
+- Indexed the sibling `irss-expansion` registry and notes, demo notes, docs, and
+  lane/lab evidence; replaced the length-normalized overlap score with BM25 and
+  added a relevance floor. Citation docs now resolve to the local `/docs/`
+  build instead of a stale public deployment.
+- Corrected the disturbance horizon, operations evidence state, climate metric
+  label, DHI instance context, and evidence-lab source links. Added a
+  “direction, not delivered state” qualifier to the before/after table.
+- Dashboard result on the depth-pass head commit: **GREEN**. Lint, format,
+  `mypy --strict`, tests with coverage, workflow validator, and Sphinx with
+  warnings as errors all passed.
+
+## 2026-11-04
+
+- Assistant context pass: the `irss-guide` agent now has read access to every
+  cloned repository and a read-only shell search allowlist (`rg`, `git` reads,
+  `ls`, `find` without mutation flags). Edit, destructive shell, Code Mode, web,
+  and subagent actions are denied. The provider invocation no longer uses
+  `--auto`.
+- Assistant evidence pass: index the sibling `irss-expansion` registry and notes,
+  index nested demo notes and lane/lab evidence, replace the length-normalized
+  overlap score with BM25, and serve the current Sphinx build at `/docs/` for
+  citation links.
+- Accuracy pass: corrected the 5-/10-year disturbance metric, operations status
+  and evidence state, climate consumer label, North Island DHI context, and
+  evidence-lab source links; qualified the before/after table as programme
+  direction rather than delivered state.
+- Documentation pass: corrected the P2 roadmap, README, assistant contract, and
+  file maps so they do not claim rate limiting or a review path that is not
+  implemented.
+- Dashboard result on the accuracy-pass head commit: **GREEN**. Lint, format,
+  `mypy --strict`, 164 tests, workflow validator, and Sphinx with warnings as
+  errors all passed.

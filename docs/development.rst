@@ -2,8 +2,9 @@ Development and verification
 ============================
 
 The site is dependency-free static HTML, CSS, and JavaScript. There is no Node
-build step. The Python environment exists for the workflow validator, the green
-dashboard, the site contract tests, and Sphinx.
+build step, but the assistant Markdown renderer has a Node contract test. The
+Python environment exists for the workflow validator, the green dashboard, the
+site contract tests, and Sphinx.
 
 Run the site locally
 --------------------
@@ -65,10 +66,20 @@ File map
      - SVG map renderer and assistant shell
    * - ``web/config.js``
      - Assistant endpoint switch; ``null`` by default
+   * - ``web/lanes.js``, ``web/lab.js``
+     - Interactive lane explorer and evidence-lab data/renderers
+   * - ``web/markdown.js``
+     - Safe Markdown renderer for assistant replies
    * - ``web/data/``
      - Small public JSON and GeoJSON fixtures
+   * - ``server/assistant.py``
+     - Opt-in same-origin assistant service and local docs route
+   * - ``opencode.json``
+     - Read-only ``irss-guide`` agent with full workspace read access
    * - ``tests/test_site.py``
      - Site contract tests
+   * - ``tests/test_assistant_server.py``
+     - Assistant, citation, and retrieval contract tests
    * - ``scripts/check_workflow.py``
      - Workflow validator
    * - ``scripts/dashboard.py``

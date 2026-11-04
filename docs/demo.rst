@@ -73,6 +73,26 @@ stop conditions.
 The page shows only the lanes that have enough public evidence to explain. The
 registry remains the source of truth for all 62 candidates.
 
+Interactive evidence surfaces
+-----------------------------
+
+The page has three layers of interaction beyond the static cards:
+
+- **Explore** selects one of the eight lanes and shows its status, recorded
+  metrics, merged evidence links, runnable surface, and boundary.
+- **Evidence lab** switches between four recorded questions: model comparison,
+  ground-to-LiDAR time lag, salvage retention, and default-versus-hybrid
+  coverage. Every view includes its values as a table and names the source
+  report. The lab does not run a model; it selects over published results.
+- **FRESH demos** links the maintained live UIs (behind Cloudflare Access) and
+  their public documentation for WS4, FHOPS, FVS-BC, HectaresBC, and the Urban
+  Forest Lab. The integration register remains the GitHub source of truth, not
+  a second demo.
+
+The inventory figures distinguish the published default cards from the
+experimental hybrid and refit. The hybrid and refit are research-only; the
+default remains the BA-only TSA 23 pilot.
+
 The case-study map
 ------------------
 

@@ -32,6 +32,7 @@ REMOTE_HOSTS = {
     "hero.epa.gov",
     "task43.ieabioenergy.com",
     "ubc-fresh.github.io",
+    "01101.dev",
 }
 
 
@@ -139,7 +140,9 @@ def test_ids_are_unique_and_links_resolve() -> None:
             assert not link.startswith("http://"), link
             if link.startswith("https://"):
                 host = urlsplit(link).hostname or ""
-                assert host in REMOTE_HOSTS, f"unexpected remote host: {host}"
+                assert host in REMOTE_HOSTS or host.endswith(".01101.dev"), (
+                    f"unexpected remote host: {host}"
+                )
             continue
         path = urlsplit(link).path
         assert (WEB / path).exists(), f"missing local link target: {path}"
@@ -172,6 +175,27 @@ def test_eight_integration_cards_have_evidence_and_boundaries() -> None:
         assert card.chips >= 2, card.identifier
         assert "Why it matters:" in text
         assert "Boundary:" in text
+
+
+def test_lane_evidence_keeps_corrected_claims() -> None:
+    """Lane metrics and statuses stay tied to the recorded registry evidence."""
+    text = (WEB / "lanes.js").read_text(encoding="utf-8")
+    assert "0.069% / 0.093%" in text
+    assert "20-year volume effect" not in text
+    assert "North Island DHI blocks" in text
+    assert "target consumers" in text
+    assert 'status: "Adopted"' in text
+    assert 'evidenceState: "Open PR · fhops#383"' in text
+    assert "Salvage volume retention declines" in text
+
+
+def test_evidence_lab_sources_match_the_views() -> None:
+    """Each evidence-lab view links the report that contains its values."""
+    text = (WEB / "lab.js").read_text(encoding="utf-8")
+    assert "inv01-tsa23-time-lag.md" in text
+    assert "inv01-tsa23-refit-applicability.md" in text
+    assert "inv01-tsa23-hybrid-vs-current.md" in text
+    assert "value decay" not in text.lower()
 
 
 def test_statuses_use_the_registry_vocabulary() -> None:
@@ -280,7 +304,8 @@ def test_javascript_never_hardcodes_a_key_or_absolute_endpoint() -> None:
         assert "sk-" not in source
         assert "api_key" not in source.lower()
         assert "https://" not in source
-    assert 'indexOf("/") === 0' in script
+    assert "new URL(" in script
+    assert "resolved.origin === window.location.origin" in script
 
 
 def test_no_private_paths_in_web_assets() -> None:
