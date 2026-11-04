@@ -72,9 +72,12 @@ Response body::
       ]
     }
 
-The current client renders ``reply`` (or ``message`` as a fallback). A production
-backend should return ``citations`` and the UI should render them; that is P2
-work.
+The client renders ``reply`` (or ``message`` as a fallback) as a small Markdown
+subset: paragraphs, headings, emphasis, inline and fenced code, links, lists,
+blockquotes, rules, and simple pipe tables. Raw HTML is escaped, and link targets
+are limited to http(s), mailto, same-origin paths, and fragments. Citations are
+rendered as a separate list below the answer, so a citation is never mistaken
+for part of the model prose.
 
 Safety requirements for a live backend
 --------------------------------------

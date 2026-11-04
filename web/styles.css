@@ -2246,3 +2246,125 @@ code {
   color: var(--faint);
   font-size: 0.9rem;
 }
+
+/* ------------------------------------------------------- assistant markdown */
+
+.assistant-msg.user {
+  white-space: pre-wrap;
+}
+
+.assistant-msg.agent > :first-child {
+  margin-top: 0;
+}
+
+.assistant-msg.agent > :last-child {
+  margin-bottom: 0;
+}
+
+.assistant-msg.agent p {
+  margin: 0.35rem 0;
+}
+
+.assistant-msg.agent h4,
+.assistant-msg.agent h5 {
+  margin: 0.55rem 0 0.25rem;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 750;
+  letter-spacing: 0;
+}
+
+.assistant-msg.agent h5 {
+  font-size: 0.78rem;
+}
+
+.assistant-msg.agent ul,
+.assistant-msg.agent ol {
+  margin: 0.3rem 0;
+  padding-left: 1.15rem;
+}
+
+.assistant-msg.agent li {
+  margin: 0.12rem 0;
+}
+
+.assistant-msg.agent strong {
+  color: var(--ink);
+  font-weight: 750;
+}
+
+.assistant-msg.agent em {
+  color: var(--ink-soft);
+}
+
+.assistant-msg.agent code {
+  padding: 0.03rem 0.24rem;
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  background: #f1f5f6;
+  color: var(--ink-soft);
+  font-size: 0.88em;
+}
+
+.assistant-msg.agent pre {
+  margin: 0.4rem 0;
+  padding: 0.55rem;
+  overflow: auto;
+  border-radius: 0.35rem;
+  background: #11231b;
+  color: #eaf3ec;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.assistant-msg.agent pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+
+.assistant-msg.agent blockquote {
+  margin: 0.4rem 0;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--accent-line);
+  color: var(--muted);
+}
+
+.assistant-msg.agent hr {
+  margin: 0.55rem 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+.assistant-msg.agent a {
+  color: var(--accent-strong);
+  overflow-wrap: anywhere;
+}
+
+.assistant-msg.agent .assistant-table-wrap {
+  max-width: 100%;
+  margin: 0.45rem 0;
+  overflow-x: auto;
+}
+
+.assistant-msg.agent table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+}
+
+.assistant-msg.agent th,
+.assistant-msg.agent td {
+  padding: 0.3rem 0.4rem;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.assistant-msg.agent th {
+  background: var(--panel-soft);
+  font-weight: 750;
+}

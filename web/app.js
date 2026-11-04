@@ -393,10 +393,14 @@
       if (!log) {
         return;
       }
-      var paragraph = document.createElement("p");
-      paragraph.className = "assistant-msg " + role;
-      paragraph.textContent = text;
-      log.appendChild(paragraph);
+      var message = document.createElement(role === "agent" ? "div" : "p");
+      message.className = "assistant-msg " + role;
+      if (role === "agent" && typeof window.renderAssistantMarkdown === "function") {
+        message.innerHTML = window.renderAssistantMarkdown(text);
+      } else {
+        message.textContent = text;
+      }
+      log.appendChild(message);
       log.scrollTop = log.scrollHeight;
     }
 
