@@ -385,6 +385,30 @@
       log.scrollTop = log.scrollHeight;
     }
 
+    function appendCitations(citations) {
+      if (!log || !Array.isArray(citations) || !citations.length) {
+        return;
+      }
+      var list = document.createElement("ul");
+      list.className = "assistant-citations";
+      citations.forEach(function (citation) {
+        if (!citation || typeof citation.url !== "string" || !citation.url) {
+          return;
+        }
+        var item = document.createElement("li");
+        var link = document.createElement("a");
+        link.href = citation.url;
+        link.textContent = typeof citation.label === "string" ? citation.label : citation.url;
+        link.rel = "noopener noreferrer";
+        item.appendChild(link);
+        list.appendChild(item);
+      });
+      if (list.children.length) {
+        log.appendChild(list);
+        log.scrollTop = log.scrollHeight;
+      }
+    }
+
     function enable() {
       if (!endpoint) {
         return;
@@ -549,6 +573,7 @@
                   ? payload.message
                   : "The assistant returned no text.";
             appendMessage("agent", reply);
+            appendCitations(payload.citations);
             setStatus("Answered by the local assistant · verify cited evidence before use");
           })
           .catch(function (error) {

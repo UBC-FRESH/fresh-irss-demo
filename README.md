@@ -56,11 +56,18 @@ document is shipped.
 ## Assistant drawer
 
 The drawer follows the HectaresBC pattern (a same-page panel with a short prompt
-box and status line) but is disabled. `web/config.js` sets
-`assistantEndpoint: null`. No prompt leaves the browser. To enable a live
-assistant, run an opt-in, same-origin backend and set a root-relative endpoint
-such as `/api/assistant`; the client rejects absolute URLs by design. The
-contract is described in [`docs/assistant.rst`](docs/assistant.rst).
+box and status line). The public static site leaves `assistantEndpoint: null`;
+the optional same-origin service injects `/api/assistant` and works locally:
+
+```bash
+python server/assistant.py --port 8765
+# open http://127.0.0.1:8765/
+```
+
+The service uses the local `opencode` CLI and retrieval over `registry/` and
+`notes/`; it never puts a provider key in the browser. The static GitHub Pages
+deployment stays disabled because it has no backend. See
+[`docs/assistant.rst`](docs/assistant.rst).
 
 ## Run locally
 

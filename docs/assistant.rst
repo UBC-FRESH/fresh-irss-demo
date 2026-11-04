@@ -32,6 +32,21 @@ To enable a live assistant, run an opt-in backend and set a root-relative path::
 The client rejects absolute URLs. It only sends a POST to the configured
 same-origin path with credentials set to ``same-origin``.
 
+Local service
+-------------
+
+The optional service is started with::
+
+    python server/assistant.py --port 8765
+
+It serves the static demo and injects a same-origin `/config.js`. It retrieves
+the top evidence notes from `registry/candidates.yaml` and `notes/`, invokes the
+local `opencode` CLI server-side, and returns `reply` plus `citations`. Set
+`FRESH_ASSISTANT_MODEL` to choose the provider model and
+`FRESH_ASSISTANT_TIMEOUT` to cap a turn. The service is rate-limited per client
+and rejects oversized requests. The public GitHub Pages site remains disabled
+because it has no server-side runtime.
+
 Request and response
 --------------------
 

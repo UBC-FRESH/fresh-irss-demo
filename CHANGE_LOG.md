@@ -40,3 +40,7 @@ status and the GitHub issue comments.
 - Opened parent issues #1 (P0), #2 (P1), #3 (P2), #4 (P3), and #5 (P4).
   P0/P1 child issues #6-#15 are closed with their evidence. The live-work
   backlog is tracked in #3-#5.
+
+## 2026-11-04
+
+- P2: added the opt-in same-origin assistant service in `server/assistant.py`, retrieval over the registry and notes, local OpenCode provider calls, citations, request limits, and tests. The static Pages build remains disabled; the local service injects `/api/assistant`.

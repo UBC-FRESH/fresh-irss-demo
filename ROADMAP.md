@@ -15,7 +15,7 @@ first public slice; P2-P4 are the live-work backlog.
 | --- | --- | --- | --- |
 | P0 Public demo slice | #1 | `main` | complete |
 | P1 Verification and publication | #2 | `main` | complete |
-| P2 Live assistant backend | #3 | `feature/p2-assistant` | planned |
+| P2 Live assistant backend | #3 | `feature/p2-assistant` | pr-open |
 | P3 Interactive map | #4 | `feature/p3-map` | planned |
 | P4 Registry-driven build | #5 | `feature/p4-registry` | planned |
 
@@ -81,14 +81,14 @@ Acceptance criteria:
 
 Parent issue: #3
 Branch: `feature/p2-assistant`
-Status: planned
+Status: pr-open
 
 Goal: add an opt-in, same-origin assistant that answers from the public registry and evidence notes, while keeping the static default disabled.
 
-- [ ] P2.1 Define the assistant request, response, and citation contract
-- [ ] P2.2 Add a same-origin service with server-side credentials and an allowlist
-- [ ] P2.3 Add retrieval over the registry and evidence notes
-- [ ] P2.4 Add rate limits, a review path, and a disabled-by-default test
+- [x] P2.1 Define the assistant request, response, and citation contract
+- [x] P2.2 Add a same-origin service with server-side credentials and an allowlist
+- [x] P2.3 Add retrieval over the registry and evidence notes
+- [x] P2.4 Add rate limits, a review path, and a disabled-by-default test
 
 Acceptance criteria:
 
