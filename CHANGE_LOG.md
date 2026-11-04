@@ -62,6 +62,8 @@ status and the GitHub issue comments.
   cell counts and 1,839 to 2,913 km² joint-area result.
 - Added a per-lane input → contract → consumer flow and corrected the lane status
   badge so the operations lane shows its open-PR state instead of complete.
+- Removed the duplicate register card from the FRESH demos section. The register
+  is the source of truth in `candidates.yaml`, not a separate hosted demo.
 - Dashboard result on the depth-pass head commit: **GREEN**. Lint, format,
   `mypy --strict`, tests with coverage, workflow validator, and Sphinx with
   warnings as errors all passed.

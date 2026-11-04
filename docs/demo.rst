@@ -86,7 +86,8 @@ The page has three layers of interaction beyond the static cards:
   report. The lab does not run a model; it selects over published results.
 - **FRESH demos** links the maintained live UIs (behind Cloudflare Access) and
   their public documentation for WS4, FHOPS, FVS-BC, HectaresBC, and the Urban
-  Forest Lab, plus the integration register.
+  Forest Lab. The integration register remains the GitHub source of truth, not
+  a second demo.
 
 The inventory figures distinguish the published default cards from the
 experimental hybrid and refit. The hybrid and refit are research-only; the
