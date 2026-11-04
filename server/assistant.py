@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import mimetypes
 import os
 import re
 import subprocess
@@ -180,7 +181,9 @@ class AssistantHandler(BaseHTTPRequestHandler):
             return
         target = WEB / ("index.html" if path in ("", "/") else path.lstrip("/"))
         if target.is_file() and WEB in target.resolve().parents:
-            ctype = "text/html" if target.suffix == ".html" else "text/plain"
+            ctype = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
+            if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
+                ctype += "; charset=utf-8"
             self._send(HTTPStatus.OK, target.read_bytes(), ctype)
             return
         self._json(HTTPStatus.NOT_FOUND, {"error": "not found"})
