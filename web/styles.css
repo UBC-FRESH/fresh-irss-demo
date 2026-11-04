@@ -2224,3 +2224,25 @@ code {
   font-size: 0.76rem;
   font-weight: 600;
 }
+
+.lane-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.8rem 0 0.2rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.lane-flow span:not(.lane-arrow) {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.35rem;
+  background: var(--panel-soft);
+}
+
+.lane-arrow {
+  color: var(--faint);
+  font-size: 0.9rem;
+}

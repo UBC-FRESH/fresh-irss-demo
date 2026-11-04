@@ -60,6 +60,8 @@ status and the GitHub issue comments.
 - Corrected the refit comparison to the in-domain BA 8.10 / volume 52.06 values
   and replaced the unsourced joint-coverage figure with the recorded BA/volume
   cell counts and 1,839 to 2,913 km² joint-area result.
+- Added a per-lane input → contract → consumer flow and corrected the lane status
+  badge so the operations lane shows its open-PR state instead of complete.
 - Dashboard result on the depth-pass head commit: **GREEN**. Lint, format,
   `mypy --strict`, tests with coverage, workflow validator, and Sphinx with
   warnings as errors all passed.
