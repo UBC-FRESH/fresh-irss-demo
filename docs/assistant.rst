@@ -79,6 +79,11 @@ are limited to http(s), mailto, same-origin paths, and fragments. Citations are
 rendered as a separate list below the answer, so a citation is never mistaken
 for part of the model prose.
 
+Citation URLs are mapped to maintained public surfaces: ``docs/`` pages go to
+this demo's published Sphinx site, ``notes/`` files go to this repository, and
+``registry/`` files go to the canonical ``irss-expansion`` registry. The
+assistant does not cite the retired ``irss-expansion`` GitHub Pages site.
+
 Safety requirements for a live backend
 --------------------------------------
 

@@ -18,7 +18,7 @@ import subprocess
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "web"
@@ -31,6 +31,9 @@ RATE_WINDOW = 60.0
 MODEL = os.environ.get("FRESH_ASSISTANT_MODEL", "opencode-go/deepseek-v4.1-flash")
 OPENCODE = os.environ.get("FRESH_ASSISTANT_OPENCODE", "opencode")
 MODEL_TIMEOUT = float(os.environ.get("FRESH_ASSISTANT_TIMEOUT", "90"))
+DOCS_BASE = "https://ubc-fresh.github.io/fresh-irss-demo/docs"
+DEMO_REPO = "https://github.com/UBC-FRESH/fresh-irss-demo/blob/main"
+REGISTRY_REPO = "https://github.com/UBC-FRESH/irss-expansion/blob/main"
 
 
 def _tokens(text: str) -> set[str]:
@@ -64,8 +67,19 @@ class EvidenceIndex:
         rel = path.relative_to(self.root).as_posix()
         self.documents.append((rel, path.stem.replace("_", " "), text))
 
+    @staticmethod
+    def _public_url(rel: str) -> str:
+        """Map a local evidence path to its maintained public location."""
+        safe_rel = quote(rel, safe="/")
+        if rel.startswith("docs/"):
+            doc_rel = rel.removeprefix("docs/").removesuffix(".rst")
+            return DOCS_BASE + "/" + quote(doc_rel, safe="/") + ".html"
+        if rel.startswith("registry/"):
+            return REGISTRY_REPO + "/" + safe_rel
+        return DEMO_REPO + "/" + safe_rel
+
     def search(self, query: str, limit: int = 4) -> list[dict[str, str]]:
-        """Return the highest-overlap evidence documents with GitHub URLs."""
+        """Return the highest-overlap evidence documents with public URLs."""
         wanted = _tokens(query)
         if not wanted:
             return []
@@ -80,14 +94,7 @@ class EvidenceIndex:
         scored.sort(reverse=True)
         result = []
         for _, rel, title, snippet in scored[:limit]:
-            url = (
-                "https://github.com/UBC-FRESH/irss-expansion/blob/main/" + rel
-                if not rel.startswith("docs/")
-                else "https://ubc-fresh.github.io/irss-expansion/"
-                + rel.removesuffix(".rst")
-                + ".html"
-            )
-            result.append({"label": title, "url": url, "snippet": snippet})
+            result.append({"label": title, "url": self._public_url(rel), "snippet": snippet})
         return result
 
 
@@ -172,10 +179,10 @@ class AssistantHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         """Serve the static demo and assistant status."""
         path = urlparse(self.path).path
-        if path.rstrip("/") == "/api/assistant":
+        if path.rstrip("/").endswith("/api/assistant"):
             self._json(HTTPStatus.OK, {"available": True, "model": MODEL})
             return
-        if path.rstrip("/") == "/config.js":
+        if path.rstrip("/").endswith("/config.js"):
             body = b'window.FRESH_IRSS_DEMO = {assistantEndpoint: "/api/assistant"};\n'
             self._send(HTTPStatus.OK, body, "text/javascript")
             return
@@ -190,7 +197,7 @@ class AssistantHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         """Answer one same-origin assistant request."""
-        if urlparse(self.path).path.rstrip("/") != "/api/assistant":
+        if not urlparse(self.path).path.rstrip("/").endswith("/api/assistant"):
             self._json(HTTPStatus.NOT_FOUND, {"error": "not found"})
             return
         length = int(self.headers.get("Content-Length", "0"))

@@ -68,6 +68,10 @@ status and the GitHub issue comments.
   Added the dependency-free renderer, XSS/URL-allowlist contract checks under
   Node, and chat-bubble styles for headings, lists, code, links, quotes, rules,
   and tables. Raw HTML remains escaped text.
+- Fixed assistant citations. ``docs/`` sources now point at this demo's
+  published Sphinx pages, notes point at the public demo repository, and registry
+  paths point at ``irss-expansion``. Removed the retired ``irss-expansion``
+  GitHub Pages prefix and added URL-mapping contract tests.
 - Dashboard result on the depth-pass head commit: **GREEN**. Lint, format,
   `mypy --strict`, tests with coverage, workflow validator, and Sphinx with
   warnings as errors all passed.

@@ -29,6 +29,26 @@ def test_evidence_search_returns_public_sources() -> None:
     assert rows[0]["snippet"]
 
 
+def test_public_urls_point_at_maintained_surfaces() -> None:
+    """Citations resolve to this demo's docs or the canonical source repositories."""
+    assert (
+        EvidenceIndex._public_url("docs/demo.rst")
+        == "https://ubc-fresh.github.io/fresh-irss-demo/docs/demo.html"
+    )
+    assert EvidenceIndex._public_url("docs/api/dashboard.rst").startswith(
+        "https://ubc-fresh.github.io/fresh-irss-demo/docs/api/"
+    )
+    assert (
+        EvidenceIndex._public_url("notes/adr/0001-static-assistant-disabled.md")
+        == "https://github.com/UBC-FRESH/fresh-irss-demo/blob/main/notes/adr/0001-static-assistant-disabled.md"
+    )
+    assert (
+        EvidenceIndex._public_url("registry/candidates.yaml")
+        == "https://github.com/UBC-FRESH/irss-expansion/blob/main/registry/candidates.yaml"
+    )
+    assert "irss-expansion/docs" not in EvidenceIndex._public_url("docs/demo.rst")
+
+
 def test_ask_uses_fake_opencode(monkeypatch: pytest.MonkeyPatch) -> None:
     """The provider response is parsed without exposing the prompt to a browser key."""
     seen: dict[str, Any] = {}
